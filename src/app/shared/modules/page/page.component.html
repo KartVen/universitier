@@ -1,0 +1,15 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [opened]="isSidenavOpened">
+    <app-sidebar />
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <app-toolbar
+        (toggleSidenav)="handleToggleSidenav()"
+        [isSidenavOpened]="isSidenavOpened" />
+    </mat-toolbar>
+    <div class="page-content">
+      <router-outlet />
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

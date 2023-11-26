@@ -1,0 +1,42 @@
+@import "global.scss";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-content {
+  width: 360px;
+}
+
+mat-card {
+  padding: 32px;
+  border: 1px solid #d4d4d4;
+  border-radius: 5px;
+}
+
+h2 {
+  font-size: 32px;
+  text-align: center;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+
+  & button {
+    width: 100%;
+    height: 44px;
+    padding: 4px 16px;
+    background: $secondary;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 0.5px;
+  }
+}
+
+mat-form-field {
+  margin: 4px 0;
+}

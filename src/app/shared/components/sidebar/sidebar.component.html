@@ -1,0 +1,24 @@
+<h2>Universitier</h2>
+<a routerLink="/home">
+  <div>
+    <mat-icon>house</mat-icon>
+    <span>Strona główna</span>
+  </div>
+</a>
+<div *ngFor="let group of groupMenu">
+  <span *ngIf="group.name" class="group-name">
+    <div></div>
+    {{ group.name }}
+    <div></div>
+  </span>
+  <ul>
+    <li *ngFor="let menu of group.menus">
+      <a [routerLink]="menu.router" routerLinkActive="active">
+        <div>
+          <mat-icon>{{ menu.icon }}</mat-icon>
+          <span>{{ menu.name }}</span>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>

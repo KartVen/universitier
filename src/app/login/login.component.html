@@ -1,0 +1,16 @@
+<div class="login-content">
+  <mat-card>
+    <h2>Logowanie</h2>
+    <form class="form-login" [formGroup]="formLogin" (submit)="submit()">
+      <mat-form-field>
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email" placeholder="Podaj e-mail" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Hasło</mat-label>
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+      <button mat-flat-button>Zaloguj się</button>
+    </form>
+  </mat-card>
+</div>

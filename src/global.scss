@@ -1,0 +1,9 @@
+$primary: #fff;
+$primary-hover: #f0f0f0;
+$secondary: #12181b;
+
+@mixin app-box-shadow {
+  -webkit-box-shadow: 4px 2px 8px lightgrey;
+  -moz-box-shadow: 4px 2px 8px lightgrey;
+  box-shadow: 4px 2px 8px lightgrey;
+}

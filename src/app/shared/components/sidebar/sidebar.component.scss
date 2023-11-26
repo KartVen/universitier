@@ -1,0 +1,98 @@
+@import 'global.scss';
+
+:host {
+  width: 100%;
+  height: 100%;
+
+  h2 {
+    text-align: center;
+    color: white;
+  }
+
+  @mixin a-tab-style {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    text-decoration: none;
+    overflow: clip;
+    color: $primary;
+    cursor: pointer;
+
+    &:hover {
+      color: #a0a0a0;
+    }
+
+    .active {
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    & > div {
+      display: flex;
+      align-items: center;
+      column-gap: 18px;
+    }
+
+    mat-icon {
+      height: 21px;
+      margin-top: -1.5px;
+      aspect-ratio: 1 / 1;
+      font-size: 21px;
+    }
+  }
+
+  & > a {
+    @include a-tab-style;
+  }
+
+  div {
+    @mixin ul-tab-style {
+      width: 100%;
+      margin: 0;
+      list-style: none;
+      overflow: hidden auto;
+    }
+
+    .group-name {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0.5rem 0;
+      color: darkslategrey;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
+
+      & > div {
+        flex: 1;
+      }
+    }
+
+    ul {
+      @include ul-tab-style;
+      padding: 0;
+
+      li {
+        display: block;
+        position: relative;
+        padding: 0;
+
+        a {
+          @include a-tab-style;
+        }
+
+        ul {
+          @include ul-tab-style;
+          width: 100%;
+          padding: 0 0 0 32px;
+
+          li {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
