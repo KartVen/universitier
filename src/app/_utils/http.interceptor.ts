@@ -14,6 +14,16 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    console.log(
+      `HTTP Request is intercepted. Method: ${req.method}, URL: ${req.url}`
+    );
+    if (req.body) {
+      console.log('Body: ', req.body);
+    }
+    console.log(
+      'Params:',
+      req.params.keys().map(key => `${key}: ${req.params.get(key)}`)
+    );
     return next.handle(req);
   }
 }
