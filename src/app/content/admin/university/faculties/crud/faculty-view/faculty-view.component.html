@@ -1,0 +1,23 @@
+<app-card *ngIf="data" name="Szczegóły semestru">
+  <div>
+    <div class="info-wrapper">
+      <span>Index</span>
+      <span>{{ data.id }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Nazwa</span>
+      <span>{{ data.name }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Skrócona nazwa</span>
+      <span>{{ data.shortName }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Adres</span>
+      <span>{{ data.address }}</span>
+    </div>
+  </div>
+</app-card>

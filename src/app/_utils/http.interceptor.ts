@@ -10,20 +10,15 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    console.log(
-      `HTTP Request is intercepted. Method: ${req.method}, URL: ${req.url}`
-    );
-    if (req.body) {
-      console.log('Body: ', req.body);
-    }
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log(`HTTP Request: ${req.method}, URL: ${req.url}`);
     console.log(
       'Params:',
       req.params.keys().map(key => `${key}: ${req.params.get(key)}`)
     );
+    if (req.body) {
+      console.log('Body: ', req.body);
+    }
     return next.handle(req);
   }
 }

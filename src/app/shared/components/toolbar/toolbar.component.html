@@ -4,6 +4,30 @@
   </button>
   <div>{{ title }}</div>
 </div>
-<div class="user-tool-content">
-  <div><mat-icon>person</mat-icon></div>
+<div *ngIf="user" class="user-tool-content">
+  <button class="user" (click)="handleToggleUserMenu()">
+    <mat-icon class="avatar">person</mat-icon>
+    <span>{{ user.username.split('@')[0] }}</span>
+    <mat-icon>{{ !isUserMenuOpened ? 'expand_more' : 'expand_less' }}</mat-icon>
+  </button>
+  <div *ngIf="isUserMenuOpened" class="user-dropdown">
+    <ul>
+      <li *ngFor="let menu of menus">
+        <a [routerLink]="menu.router">
+          <div>
+            <mat-icon>{{ menu.icon }}</mat-icon>
+            <span>{{ menu.name }}</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#" (click)="logout()">
+          <div>
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Wyloguj się</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>

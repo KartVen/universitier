@@ -1,0 +1,18 @@
+<app-card *ngIf="data" name="Szczegóły semestru">
+  <div>
+    <div class="info-wrapper">
+      <span>Index</span>
+      <span>{{ data.id }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Rok akademicki</span>
+      <span>{{ data.academicYear }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Ilość semestrów</span>
+      <span>{{ data.number }}</span>
+    </div>
+  </div>
+</app-card>

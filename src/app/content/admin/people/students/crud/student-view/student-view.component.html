@@ -1,0 +1,33 @@
+<app-card *ngIf="student" name="Szczegóły studenta">
+  <div>
+    <div class="info-wrapper">
+      <span>Imię</span>
+      <span>{{ student.firstName }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Nazwisko</span>
+      <span>{{ student.lastName }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Email</span>
+      <span>{{ student.email }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Hasło</span>
+      <span>{{ student.password }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Rola</span>
+      <span>{{ student.role }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Aktywny?</span>
+      <span>{{ student.active }}</span>
+    </div>
+  </div>
+</app-card>

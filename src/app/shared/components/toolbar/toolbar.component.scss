@@ -24,4 +24,81 @@
       margin-top: 2px;
     }
   }
+
+  .user-tool-content {
+    position: relative;
+
+    .user {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+
+      .avatar {
+        margin-bottom: .125rem;
+        padding: 0.15rem;
+        border-radius: 1rem;
+      }
+
+      span {
+        font-size: 1rem;
+      }
+    }
+
+    .user-dropdown {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 200px;
+      height: 300px;
+      transform: translateY(100%);
+      padding-top: .5rem;
+
+      ul {
+        background: $primary;
+        width: 100%;
+        margin: 0;
+        padding: .5rem 0;
+        border-bottom-left-radius: .5rem;
+        border-bottom-right-radius: .5rem;
+        list-style: none;
+        overflow: hidden auto;
+        @include app-box-shadow;
+
+        li {
+          display: block;
+          position: relative;
+          padding: 0;
+
+          a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            padding: .5rem;
+            overflow: clip;
+            color: $secondary;
+            cursor: pointer;
+
+            &:hover {
+              background: $primary-hover;
+            }
+
+            & > div {
+              display: flex;
+              align-items: center;
+              column-gap: 18px;
+            }
+
+            mat-icon {
+              height: 21px;
+              margin-top: -1.5px;
+              aspect-ratio: 1 / 1;
+              font-size: 21px;
+            }
+          }
+        }
+      }
+    }
+  }
 }

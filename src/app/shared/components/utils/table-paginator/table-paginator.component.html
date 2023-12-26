@@ -1,0 +1,16 @@
+<div class="pagination">
+  <button (click)="onPageChange(currentPage - 1)">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <div class="page-numbers">
+    <button *ngFor="let page of calcPages()" (click)="onPageChange(page)">{{ page }}</button>
+  </div>
+  <button (click)="onPageChange(currentPage + 1)">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
+</div>
+<div class="page-size">
+  <select (change)="onPageSizeChange($event.target)">
+    <option *ngFor="let option of sizePerPageOptions" [value]="option">{{ option }}</option>
+  </select>
+</div>

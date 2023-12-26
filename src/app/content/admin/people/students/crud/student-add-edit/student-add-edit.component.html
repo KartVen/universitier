@@ -1,0 +1,106 @@
+<app-card [name]="name">
+  <form [formGroup]="form" (submit)="onSubmit()" novalidate>
+    <label class="info-wrapper" for="first_name">
+      <span>Imię *</span>
+      <input type="text" id="first_name" name="first_name" formControlName="first_name" />
+    </label>
+
+    <label class="info-wrapper" for="last_name">
+      <span>Nazwisko *</span>
+      <input type="text" id="last_name" name="last_name" formControlName="last_name" />
+    </label>
+
+    <label class="info-wrapper" for="password">
+      <span>Hasło (domyślne) *</span>
+      <input type="text" id="password" name="password" formControlName="password" />
+    </label>
+
+    <label class="info-wrapper form-array-info-wrapper" for="membership">
+      <span id="membership">Przynależność: *</span>
+      <div class="form-array-block">
+        <div
+          class="form-array-item"
+          *ngFor="
+            let el of [{ display: 'WEII/Informatyka/AA' }, { display: 'WEII/Telekomunikacja/AA' }];
+            let i = index
+          ">
+          <span>{{ el.display }}</span>
+          <button
+            type="button"
+            aria-label="Usuń"
+            class="block-button"
+            (click)="removeMembership(i)">
+            X
+          </button>
+        </div>
+        <div class="form-array-item" *ngFor="let el of membership.controls; let i = index">
+          <span>{{ el.value.display }}</span>
+          <button
+            type="button"
+            aria-label="Usuń"
+            class="multi-sel-btn block-button"
+            (click)="removeMembership(i)">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button
+        type="button"
+        aria-label="Dodaj"
+        class="add-button"
+        *ngIf="!isMembershipForm"
+        (click)="isMembershipForm = true">
+        Dodaj
+      </button>
+    </label>
+
+    <div *ngIf="isMembershipForm" class="sub-form">
+      <label class="info-wrapper" for="faculty">
+        <span>Wydział *</span>
+        <select id="faculty" name="faculty">
+          <option *ngFor="let faculty of facultiesOptions" [value]="faculty.id">
+            {{ faculty.name }}
+          </option>
+        </select>
+      </label>
+
+      <label class="info-wrapper" for="course">
+        <span>Kierunek *</span>
+        <select id="course" name="course">
+          <option *ngFor="let course of coursesOptions" [value]="course.id">
+            {{ course.name }}
+          </option>
+        </select>
+      </label>
+
+      <label class="info-wrapper" for="programme">
+        <span>Specjalność *</span>
+        <select id="programme" name="programme">
+          <option *ngFor="let programme of programmesOptions" [value]="programme.id">
+            {{ programme.name }}
+          </option>
+        </select>
+      </label>
+
+      <button type="button" aria-label="Dodaj" class="save-button">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="info-wrapper action-buttons">
+      <button mat-stroked-button aria-label="Zapisz" type="submit" class="save-button">
+        <mat-icon>check_circle</mat-icon>
+        Zapisz
+      </button>
+      <button
+        mat-stroked-button
+        aria-label="Anuluj"
+        type="button"
+        class="cancel-button"
+        (click)="onCancel()">
+        <mat-icon>cancel</mat-icon>
+        Anuluj
+      </button>
+    </div>
+  </form>
+</app-card>

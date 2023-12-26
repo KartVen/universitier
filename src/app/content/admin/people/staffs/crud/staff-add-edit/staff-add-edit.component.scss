@@ -1,0 +1,16 @@
+@import "global";
+
+:host {
+  width: 100%;
+
+  app-card-table {
+    width: 100%;
+  }
+
+  form {
+    width: 100%;
+    max-width: 25%;
+
+    @include crud-fields;
+  }
+}

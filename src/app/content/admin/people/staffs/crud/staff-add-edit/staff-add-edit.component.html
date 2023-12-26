@@ -1,0 +1,96 @@
+<app-card [name]="name">
+  <form [formGroup]="form" (submit)="onSubmit()" novalidate>
+    <label class="info-wrapper" for="first_name">
+      <span>Imię *</span>
+      <input type="text" id="first_name" name="first_name" formControlName="first_name" />
+    </label>
+
+    <label class="info-wrapper" for="last_name">
+      <span>Nazwisko *</span>
+      <input type="text" id="last_name" name="last_name" formControlName="last_name" />
+    </label>
+
+    <label class="info-wrapper" for="email_identifier">
+      <span>Email *</span>
+      <div>
+        <input
+          type="text"
+          id="email_identifier"
+          name="email_identifier"
+          formControlName="email_identifier" />
+        <span class="placeholder">{{ EMAIL_DOMAIN }}</span>
+      </div>
+    </label>
+
+    <label class="info-wrapper" for="password">
+      <span>Hasło (domyślne) *</span>
+      <input type="text" id="password" name="password" formControlName="password" />
+    </label>
+
+    <label class="info-wrapper" for="role">
+      <span>Rola *</span>
+      <select id="role" name="role" formControlName="role">
+        <option *ngFor="let role of STAFF_ROLES" [value]="role">
+          {{ role }}
+        </option>
+      </select>
+    </label>
+
+    <div [ngSwitch]="form.get('role')?.value">
+      <div *ngSwitchCase="STAFF_ROLES[0]">
+        <label class="info-wrapper" for="position">
+          <span>Stanowisko *</span>
+          <input type="text" id="position" name="position" formControlName="position" />
+        </label>
+      </div>
+
+      <div *ngSwitchCase="STAFF_ROLES[1]">
+        <label class="info-wrapper" for="faculty">
+          <span>Wydział *</span>
+          <select id="faculty" name="faculty" formControlName="faculty">
+            <option *ngFor="let faculty of facultiesOptions" [value]="faculty.id">
+              {{ faculty.name }}
+            </option>
+          </select>
+        </label>
+
+        <label class="info-wrapper" for="course">
+          <span>Kierunek *</span>
+          <select id="course" name="course" formControlName="course">
+            <option *ngFor="let course of coursesOptions" [value]="course.id">
+              {{ course.name }}
+            </option>
+          </select>
+        </label>
+
+        <label class="info-wrapper" for="faculty">
+          <span>Specjalność *</span>
+          <select id="programme" name="programme" formControlName="programme">
+            <option *ngFor="let programme of programmesOptions" [value]="programme.id">
+              {{ programme.name }}
+            </option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <label class="info-wrapper" for="description">
+      <span>Opis</span>
+      <input type="text" id="description" name="description" formControlName="description" />
+    </label>
+
+    <div class="info-wrapper action-buttons">
+      <button mat-stroked-button aria-label="Zapisz" type="submit" class="save-button">
+        <mat-icon>check_circle</mat-icon> Zapisz
+      </button>
+      <button
+        mat-stroked-button
+        aria-label="Anuluj"
+        type="button"
+        class="cancel-button"
+        (click)="onCancel()">
+        <mat-icon>cancel</mat-icon> Anuluj
+      </button>
+    </div>
+  </form>
+</app-card>

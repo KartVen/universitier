@@ -1,1 +1,7 @@
-<span>home works!</span>
+<app-card
+  class="article"
+  *ngFor="let article of articles"
+  [name]="article.title">
+  <div class="article-content" [innerHTML]="article.content"></div>
+  <div class="article-date">{{ article.date }}</div>
+</app-card>

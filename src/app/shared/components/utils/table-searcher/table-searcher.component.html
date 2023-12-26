@@ -1,0 +1,6 @@
+<button mat-icon-button aria-label="Dodawanie" class="add-button" (click)="addRecord()">
+  <mat-icon>add_circle</mat-icon>
+</button>
+<label>
+  <input type="search" (keydown.enter)="applyInput($event)" [placeholder]="placeholder" />
+</label>

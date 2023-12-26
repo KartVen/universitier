@@ -1,0 +1,7 @@
+@import 'global';
+
+:host {
+  table {
+    @include card-table-style
+  }
+}

@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  HostListener,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -26,25 +25,6 @@ export class PageComponent implements AfterViewInit {
     private renderer: Renderer2
   ) {}
 
-  @HostListener('window:scroll', ['$event'])
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onScroll(event: any): void {
-    const scrollY = window.scrollY;
-    if (scrollY > 0) {
-      this.renderer.setStyle(
-        this.matToolbar.nativeElement,
-        'position',
-        'absolute'
-      );
-    } else {
-      this.renderer.setStyle(
-        this.matToolbar.nativeElement,
-        'position',
-        'relative'
-      );
-    }
-  }
-
   ngAfterViewInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe(res => {
       if (res.matches) {
@@ -56,9 +36,15 @@ export class PageComponent implements AfterViewInit {
     });
   }
 
+  onScroll(event: any) {
+    console.log('dupa');
+    console.log(event.target);
+  }
+
   handleToggleSidenav() {
     this.isSidenavOpened = !this.isSidenavOpened;
   }
 
   scrolledDown: boolean = false; // Zmienna do śledzenia, czy przewinąłeś stronę w dół
+  protected readonly console = console;
 }

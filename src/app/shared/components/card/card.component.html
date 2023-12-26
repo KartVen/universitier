@@ -1,4 +1,11 @@
-<div>
+<div (click)="handleExpand()" (keydown)="handleExpand()" role="button" tabindex="0">
   <h3>{{ name }}</h3>
+  <div *ngIf="expandMode">
+    <mat-icon>{{ !isExpanded ? 'expand_more' : 'expand_less' }}</mat-icon>
+  </div>
 </div>
-<ng-content />
+<ng-template [ngIf]="!expandMode || isExpanded">
+  <div [class]="expandMode && !isExpanded ? 'card-content card-hidden' : 'card-content'">
+    <ng-content></ng-content>
+  </div>
+</ng-template>
