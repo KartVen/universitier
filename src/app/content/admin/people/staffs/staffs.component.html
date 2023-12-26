@@ -1,0 +1,47 @@
+<div>
+  <app-table-searcher />
+  <table>
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>Status</th>
+        <th>Akcje</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="dataSource.length === 0">
+        <span class="no-result">Brak wyników...</span>
+      </tr>
+      <tr *ngFor="let person of dataSource">
+        <td>{{ person.email.split('@')[0] }}</td>
+        <td>{{ person.firstName }}</td>
+        <td>{{ person.lastName }}</td>
+        <td>
+          <span
+            class="status-block"
+            [ngClass]="person.active ? 'active-status' : 'inactive-status'">
+            {{ person.active ? 'Aktywny' : 'Nieaktywny' }}
+          </span>
+        </td>
+        <td class="action-buttons">
+          <button
+            mat-icon-button
+            aria-label="Podgląd"
+            class="visibility-button"
+            (click)="open(person.id)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Edycja" class="edit-button" (click)="edit(person.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Usuń" class="block-button">
+            <mat-icon>block</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <app-table-paginator [totalElements]="totalElements" [sizePerPageOptions]="[10]" />
+</div>

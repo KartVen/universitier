@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import Auth from '../shared/models/api/auth';
+import Auth from '../shared/models/auth';
+import { jwtDecode } from 'jwt-decode';
 
 const AUTH_ITEM_KEY = 'USESSION';
 
@@ -25,4 +26,17 @@ export class BrowserService {
   clean(): void {
     window.sessionStorage.clear();
   }
+
+  get(): Jwt | null {
+    const token = this.browser.getItem(AUTH_ITEM_KEY);
+    return token ? jwtDecode(token) : null;
+  }
+}
+
+export interface Jwt {
+  id: number;
+  username: string;
+  authorities: string[];
+  iat: number;
+  exp: number;
 }

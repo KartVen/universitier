@@ -6,9 +6,21 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './content/dashboard/dashboard.component';
 import { ProfileComponent } from './content/profile/profile.component';
 import { SettingsComponent } from './content/settings/settings.component';
-import { MenuGroup } from './shared/components/sidebar/sidebar.component';
-import { PeopleComponent } from './content/people/people.component';
-import { UniversityComponent } from './content/university/university.component';
+import { AuthGuard } from './_utils/guards/auth.guard';
+import { PeopleComponent } from './content/admin/people/people.component';
+import { UniversityComponent } from './content/admin/university/university.component';
+import { StaffAddEditComponent } from './content/admin/people/staffs/crud/staff-add-edit/staff-add-edit.component';
+import { StaffViewComponent } from './content/admin/people/staffs/crud/staff-view/staff-view.component';
+import { StudentAddEditComponent } from './content/admin/people/students/crud/student-add-edit/student-add-edit.component';
+import { StudentViewComponent } from './content/admin/people/students/crud/student-view/student-view.component';
+import { AcademicYearAddEditComponent } from './content/admin/university/academic-years/crud/academic-year-add-edit/academic-year-add-edit.component';
+import { AcademicYearViewComponent } from './content/admin/university/academic-years/crud/academic-year-view/academic-year-view.component';
+import { FacultyAddEditComponent } from './content/admin/university/faculties/crud/faculty-add-edit/faculty-add-edit.component';
+import { FacultyViewComponent } from './content/admin/university/faculties/crud/faculty-view/faculty-view.component';
+import { CourseViewComponent } from './content/admin/university/courses/crud/course-view/course-view.component';
+import { CourseAddEditComponent } from './content/admin/university/courses/crud/course-add-edit/course-add-edit.component';
+
+export const BASE_API_URL = 'http://localhost:8080';
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,6 +34,7 @@ const ROUTES: Routes = [
   {
     path: '',
     component: PageComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'dashboard',
@@ -30,13 +43,84 @@ const ROUTES: Routes = [
       },
       {
         path: 'university',
-        component: UniversityComponent,
-        title: 'Zarządzanie uczelnią',
+        children: [
+          {
+            path: '',
+            component: UniversityComponent,
+            title: 'Programy nauczania',
+          },
+          { path: 'faculty-add', component: FacultyAddEditComponent },
+          {
+            path: 'faculties',
+            children: [
+              {
+                path: ':id',
+                children: [
+                  { path: '', component: FacultyViewComponent },
+                  { path: 'edit', component: FacultyAddEditComponent },
+                ],
+              },
+            ],
+          },
+          { path: 'academic-year-add', component: AcademicYearAddEditComponent },
+          {
+            path: 'academic-years',
+            children: [
+              {
+                path: ':id',
+                children: [
+                  { path: '', component: AcademicYearViewComponent },
+                  { path: 'edit', component: AcademicYearAddEditComponent },
+                ],
+              },
+            ],
+          },
+          { path: 'course-add', component: CourseAddEditComponent },
+          {
+            path: 'courses',
+            children: [
+              {
+                path: ':id',
+                children: [
+                  { path: '', component: CourseViewComponent },
+                  { path: 'edit', component: CourseAddEditComponent },
+                ],
+              },
+            ],
+          },
+        ],
       },
       {
         path: 'people',
-        component: PeopleComponent,
-        title: 'Zarządzanie ludźmi',
+        children: [
+          { path: '', component: PeopleComponent, title: 'Pracownicy i studenci' },
+          { path: 'staff-add', component: StaffAddEditComponent },
+          {
+            path: 'staffs',
+            children: [
+              {
+                path: ':id',
+                children: [
+                  { path: '', component: StaffViewComponent },
+                  { path: 'edit', component: StaffAddEditComponent },
+                ],
+              },
+            ],
+          },
+          { path: 'student-add', component: StudentAddEditComponent },
+          {
+            path: 'students',
+            children: [
+              {
+                path: ':id',
+                children: [
+                  { path: '', component: StudentViewComponent },
+                  { path: 'edit', component: StudentAddEditComponent },
+                ],
+              },
+            ],
+          },
+        ],
       },
       {
         path: 'profile',
@@ -54,6 +138,7 @@ export const SIDEBAR_MENUS: MenuGroup[] = [
     menus: [{ name: 'Dashboard', icon: 'dashboard', router: '/dashboard' }],
   },
   {
+    role: ['STUDENT, LECTURER, ADMINISTRATOR'],
     menus: [
       {
         name: 'Harmonogramy',
@@ -64,6 +149,7 @@ export const SIDEBAR_MENUS: MenuGroup[] = [
   },
   {
     name: 'Student',
+    role: ['STUDENT'],
     menus: [
       {
         name: 'Oceny',
@@ -74,24 +160,18 @@ export const SIDEBAR_MENUS: MenuGroup[] = [
   },
   {
     name: 'Administracja',
+    role: ['ADMINISTRATOR'],
     menus: [
       {
-        name: 'Zarządzanie uczelnią',
+        name: 'Programy nauczania',
         icon: 'school',
         router: '/university',
       },
       {
-        name: 'Zarządzanie ludźmi',
+        name: 'Pracownicy i studenci',
         icon: 'people',
         router: '/people',
       },
-    ],
-  },
-  {
-    name: 'Profil',
-    menus: [
-      { name: 'Profil', icon: 'person', router: '/profile' },
-      { name: 'Ustawienia', icon: 'settings', router: '/settings' },
     ],
   },
 ];
@@ -101,3 +181,15 @@ export const SIDEBAR_MENUS: MenuGroup[] = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
+
+export type Menu = {
+  name: string;
+  icon: string;
+  router: string;
+};
+
+export type MenuGroup = {
+  name?: string;
+  role?: string[];
+  menus: Menu[];
+};

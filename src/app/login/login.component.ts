@@ -14,6 +14,7 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../_services/auth.service';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-login',
@@ -25,12 +26,14 @@ import { AuthService } from '../_services/auth.service';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
+    MatAutocompleteModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
+  formError: string | null = null;
 
   constructor(
     private readonly browserService: BrowserService,
@@ -57,7 +60,15 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/dashboard']);
         },
         error: err => {
-          console.log('formLogin', err);
+          console.log('formError', err);
+          switch (err.status) {
+            case 400:
+            case 401:
+              this.formError = 'Nieprawidłowy email lub hasło.';
+              break;
+            default:
+              this.formError = 'Wystąpił błąd podczas logowania.';
+          }
         },
       });
   }

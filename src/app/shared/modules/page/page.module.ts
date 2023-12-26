@@ -10,6 +10,7 @@ import { HomeComponent } from '../../../home/home.component';
 import { DashboardComponent } from '../../../content/dashboard/dashboard.component';
 import { ProfileComponent } from '../../../content/profile/profile.component';
 import { SettingsComponent } from '../../../content/settings/settings.component';
+import { CardComponent } from '../../components/card/card.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SettingsComponent } from '../../../content/settings/settings.component'
     SidebarComponent,
     MatToolbarModule,
     ToolbarComponent,
+    CardComponent,
   ],
 })
 export class PageModule {}

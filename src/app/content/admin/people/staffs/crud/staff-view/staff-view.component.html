@@ -1,0 +1,43 @@
+<app-card *ngIf="staff" name="Szczegóły kierunku">
+  <div>
+    <div class="info-wrapper">
+      <span>Imię</span>
+      <span>{{ staff.firstName }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Nazwisko</span>
+      <span>{{ staff.lastName }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Email</span>
+      <span>{{ staff.email }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Hasło</span>
+      <span>{{ staff.password }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Rola</span>
+      <span>{{ mapRole(staff.role) }}</span>
+    </div>
+
+    <div class="info-wrapper" *ngIf="staff.role === 'STAFF'">
+      <span>Stanowisko *</span>
+      <span>{{ staff.position }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Opis</span>
+      <span>{{ staff.description }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Aktywny?</span>
+      <span>{{ staff.active }}</span>
+    </div>
+  </div>
+</app-card>

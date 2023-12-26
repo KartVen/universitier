@@ -1,0 +1,25 @@
+<app-card *ngIf="data" name="Szczegóły semestru">
+  <div>
+    <div class="info-wrapper">
+      <span>Index</span>
+      <span>{{ data.id }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Nazwa</span>
+      <span>{{ data.name }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Wydział</span>
+      <span>{{ data.faculty.name }}</span>
+    </div>
+
+    <div class="info-wrapper form-array-info-wrapper">
+      <span>Lata akademickie</span>
+      <div class="form-array-item" *ngFor="let el of academicYearOrder(data.academicYears)">
+        <span>{{ el.academicYear }}</span>
+      </div>
+    </div>
+  </div>
+</app-card>

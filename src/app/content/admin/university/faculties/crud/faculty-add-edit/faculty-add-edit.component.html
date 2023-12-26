@@ -1,0 +1,34 @@
+<app-card [name]="name">
+  <form [formGroup]="form" (submit)="onSubmit()" novalidate>
+    <label class="info-wrapper" for="name">
+      <span>Nazwa *</span>
+      <input type="text" id="name" name="name" formControlName="name" />
+    </label>
+
+    <label class="info-wrapper" for="shortname">
+      <span>Skrócona nazwa *</span>
+      <input type="text" id="shortname" name="shortname" formControlName="shortname" />
+    </label>
+
+    <label class="info-wrapper" for="address">
+      <span>Adres *</span>
+      <input type="text" id="address" name="address" formControlName="address" />
+    </label>
+
+    <div class="info-wrapper action-buttons">
+      <button mat-stroked-button aria-label="Zapisz" type="submit" class="save-button">
+        <mat-icon>check_circle</mat-icon>
+        Zapisz
+      </button>
+      <button
+        mat-stroked-button
+        aria-label="Anuluj"
+        type="button"
+        class="cancel-button"
+        (click)="onCancel()">
+        <mat-icon>cancel</mat-icon>
+        Anuluj
+      </button>
+    </div>
+  </form>
+</app-card>

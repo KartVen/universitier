@@ -1,10 +1,13 @@
 <div class="login-content">
   <mat-card>
     <h2>Logowanie</h2>
+    <div class="error-message" *ngIf="formError">
+      {{ formError }}
+    </div>
     <form class="form-login" [formGroup]="formLogin" (submit)="submit()">
       <mat-form-field>
         <mat-label>E-mail</mat-label>
-        <input matInput formControlName="email" placeholder="Podaj e-mail" />
+        <input matInput formControlName="email" placeholder="Podaj e-mail" autocomplete="auto" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Hasło</mat-label>

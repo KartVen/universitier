@@ -7,3 +7,194 @@ $secondary: #12181b;
   -moz-box-shadow: 4px 2px 8px lightgrey;
   box-shadow: 4px 2px 8px lightgrey;
 }
+
+@mixin card-table-style {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+
+  thead tr,
+  tbody tr:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  tr, .no-result {
+    height: 56px;
+    text-align: left;
+  }
+
+  th, td {
+    padding: 0 1rem;
+  }
+
+  .no-result {
+    display: block;
+    padding: 1rem;
+  }
+
+  td {
+    text-align: left;
+  }
+}
+
+@mixin status-block {
+  padding: 4px 8px;
+  border-radius: 5px;
+  display: inline-block;
+
+  .status-block {
+    padding: 4px 8px;
+    border-radius: 5px;
+    display: inline-block;
+  }
+
+  .active-status {
+    background-color: lightgreen;
+    color: green;
+  }
+
+  .inactive-status {
+    background-color: lightcoral;
+    color: red;
+  }
+}
+
+@mixin crud-fields {
+  .info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem 0;
+
+    span:first-child {
+      width: 100%;
+    }
+
+    & > span:first-child, .placeholder {
+      font-size: 14px;
+      font-weight: 400;
+      color: #999;
+    }
+
+    span:last-child {
+      padding: 0 0.25rem;
+    }
+
+    input, select, & > button {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 1px 2px #aaa;
+      font-size: 14px;
+      outline: none;
+    }
+
+    & > button {
+      background: transparent;
+    }
+
+    select::-ms-expand {
+      padding-right: 1rem;
+    }
+  }
+
+  .form-array-info-wrapper {
+    .form-array-block {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      padding-bottom: .5rem;
+      padding-top: .125rem;
+
+      .form-array-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0 .5rem;
+        font-size: 0.875rem;
+
+        button {
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          font-weight: bold;
+          padding: .125rem .5rem;
+
+          &:active {
+            background: $primary-hover;
+          }
+        }
+      }
+    }
+
+    & > button {
+      cursor: pointer;
+
+      &:focus {
+        background: $primary-hover;
+      }
+
+      &:active {
+        background: #e0e0e0;
+      }
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: row;
+    padding-top: 1rem;
+    @include action-buttons-color;
+  }
+}
+
+@mixin sub-form-crud-fields {
+  padding: 0.5rem 0.75rem;
+  @include app-box-shadow;
+
+  & > button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    margin-top: .5rem;
+    padding: 0.25rem 0.75rem;
+    width: 100%;
+
+    &:focus {
+      background: $primary-hover;
+    }
+
+    &:active {
+      background: #e0e0e0;
+    }
+
+    mat-icon {
+      padding-top: .25rem;
+    }
+  }
+}
+
+@mixin action-buttons-color {
+  .add-button {
+    color: #27ae60;
+  }
+  .save-button {
+    color: #3498db;
+  }
+  .cancel-button {
+    color: #e74c3c;
+  }
+  .visibility-button {
+    color: #888;
+  }
+  .edit-button {
+    color: #3498db;
+  }
+  .block-button {
+    display: none;
+    color: #e74c3c;
+  }
+}

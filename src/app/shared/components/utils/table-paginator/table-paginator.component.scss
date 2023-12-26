@@ -1,0 +1,73 @@
+@import "global";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5rem 0;
+  gap: 1.5rem;
+  font-size: .875rem;
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    button {
+      width: 2rem;
+      height: 2rem;
+      padding: 2px;
+      border: 1px solid rgba(0, 0, 0, .15);
+      border-radius: .5rem;
+      font-size: .875rem;
+      background: transparent;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $primary-hover;
+      }
+    }
+
+    .page-numbers {
+      display: flex;
+
+      .page-dots {
+        border:none;
+        cursor: unset;
+
+        &:hover {
+          background: transparent;
+        }
+      }
+
+      .page-active {
+        font-weight: bold;
+        background: $primary-hover;
+      }
+    }
+  }
+
+  .page-size {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    span {
+      font-size: 0.875rem;
+    }
+
+    select {
+      width: max-content;
+      height: 2rem;
+      padding: 2px;
+      border: 1px solid rgba(0, 0, 0, .15);
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+
+    select:hover {
+      background-color: $primary-hover;
+    }
+  }
+}
