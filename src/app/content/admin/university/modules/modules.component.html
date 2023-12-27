@@ -4,8 +4,10 @@
     <thead>
       <tr>
         <th>Index</th>
-        <th>Ilość semestrów</th>
-        <th>Rok akademicki</th>
+        <th>Nazwa</th>
+        <th>Punkty ECTS</th>
+        <th>Ezgzamin?</th>
+        <th>Specjalność</th>
         <th>Akcje</th>
       </tr>
     </thead>
@@ -15,8 +17,10 @@
       </tr>
       <tr *ngFor="let element of dataSource">
         <td>{{ element.id }}</td>
-        <td>{{ element.semesters }}</td>
-        <td>{{ element.range }}</td>
+        <td>{{ element.name }}</td>
+        <td>{{ element.ects }}</td>
+        <td>{{ element.isExam ? '&check;' : '' }}</td>
+        <td>{{ element.programmeName }}</td>
         <td class="action-buttons">
           <button
             mat-icon-button

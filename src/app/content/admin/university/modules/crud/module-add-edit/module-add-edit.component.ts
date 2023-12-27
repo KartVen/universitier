@@ -5,49 +5,55 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseAddEdit, CourseService } from '../../../../../../_services/course.service';
+import { ModuleAddEdit, ModuleService } from '../../../../../../_services/module.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FacultySelectable, FacultyService } from '../../../../../../_services/faculty.service';
+import {
+  ProgrammeSelectable,
+  ProgrammeService,
+} from '../../../../../../_services/programme.service';
 
 @Component({
-  selector: 'app-course-add-edit',
+  selector: 'app-module-add-edit',
   standalone: true,
   imports: [CommonModule, CardComponent, ReactiveFormsModule, MatIconModule, MatButtonModule],
-  templateUrl: './course-add-edit.component.html',
-  styleUrl: './course-add-edit.component.scss',
+  templateUrl: './module-add-edit.component.html',
+  styleUrl: './module-add-edit.component.scss',
 })
-export class CourseAddEditComponent {
+export class ModuleAddEditComponent {
   protected id: number | null = null;
   protected name = '';
 
   protected form!: FormGroup;
-  protected facultySelectableList: FacultySelectable[] = [];
+  protected programmeSelectableList: ProgrammeSelectable[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private readonly courseService: CourseService,
-    private readonly facultyService: FacultyService
+    private readonly moduleService: ModuleService,
+    private readonly programmeService: ProgrammeService
   ) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
-      faculty_id: ['', [Validators.required]],
+      ects: [0, [Validators.required]],
+      hours: [0, [Validators.required]],
+      is_exam: ['', [Validators.required]],
+      programme_id: ['', [Validators.required]],
     });
     this.handleApi();
     this.route.params.subscribe(params => {
       this.id = +params['id'];
-      this.name = `${this.id ? 'Edytuj' : 'Dodaj'} kierunek`;
+      this.name = `${this.id ? 'Edytuj' : 'Dodaj'} moduł`;
       if (this.id) {
-        this.courseService.getCourse(this.id).subscribe({
+        this.moduleService.getModule(this.id).subscribe({
           next: res => {
             this.form.patchValue({
               ...res,
-              faculty_id: res.faculty.id,
+              programme_id: res.programme.id,
             });
-            this.facultySelectableList = this.facultySelectableList.filter(
-              ({ id }) => id === res.faculty.id
+            this.programmeSelectableList = this.programmeSelectableList.filter(
+              ({ id }) => id === res.programme.id
             );
           },
           error: (err: HttpErrorResponse) => console.log(err),
@@ -57,26 +63,29 @@ export class CourseAddEditComponent {
   }
 
   private handleApi() {
-    this.facultyService.getFacultiesSelectable().subscribe({
-      next: res => (this.facultySelectableList = res),
+    this.programmeService.getProgrammesSelectable().subscribe({
+      next: res => (this.programmeSelectableList = res),
       error: (err: HttpErrorResponse) => console.log(err),
     });
   }
 
   onSubmit() {
     const rawFormData = this.form.getRawValue();
-    const onSave: CourseAddEdit = {
+    const onSave: ModuleAddEdit = {
       name: rawFormData.name,
-      facultyId: rawFormData.faculty_id,
+      programmeId: rawFormData.programme_id,
+      ects: rawFormData.ects,
+      hours: rawFormData.hours,
+      isExam: rawFormData.is_exam,
     };
     if (this.id) {
-      this.courseService.putCourse(this.id, onSave).subscribe({
-        next: () => this.router.navigate(['university', 'courses', this.id]),
+      this.moduleService.putModule(this.id, onSave).subscribe({
+        next: () => this.router.navigate(['university', 'modules', this.id]),
         error: (err: HttpErrorResponse) => console.log(err),
       });
     } else {
-      this.courseService.postCourse(onSave).subscribe({
-        next: res => this.router.navigate(['university', 'courses', res.id]),
+      this.moduleService.postModule(onSave).subscribe({
+        next: res => this.router.navigate(['university', 'modules', res.id]),
         error: (err: HttpErrorResponse) => console.log(err),
       });
     }

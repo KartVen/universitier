@@ -5,11 +5,11 @@
       <input type="text" id="name" name="name" formControlName="name" />
     </label>
 
-    <label class="info-wrapper" for="faculty">
+    <label class="info-wrapper" for="course">
       <span>Wydział *</span>
-      <select id="faculty" name="faculty" formControlName="faculty_id">
-        <option *ngFor="let el of facultySelectableList" [value]="el.id">
-          {{ el.name }} ({{ el.shortName }})
+      <select id="course" name="course" formControlName="course_id">
+        <option *ngFor="let el of courseSelectableList" [value]="el.id">
+          {{ el.name }}
         </option>
       </select>
     </label>

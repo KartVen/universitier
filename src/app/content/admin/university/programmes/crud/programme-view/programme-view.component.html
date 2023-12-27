@@ -1,4 +1,4 @@
-<app-card *ngIf="data" name="Szczegóły kierunku">
+<app-card *ngIf="data" name="Szczegóły specjalności">
   <div>
     <div class="info-wrapper">
       <span>Index</span>
@@ -11,14 +11,14 @@
     </div>
 
     <div class="info-wrapper">
-      <span>Wydział</span>
-      <span>{{ data.faculty.name }}</span>
+      <span>Kierunek</span>
+      <span>{{ data.course.name }}</span>
     </div>
 
     <div class="info-wrapper form-array-info-wrapper">
-      <span>Specjalności</span>
-      <div class="form-array-item" *ngFor="let el of data.programmes">
-        <span>{{ el.shortname }} - {{ el.name }}</span>
+      <span>Moduły</span>
+      <div class="form-array-item" *ngFor="let el of data.modules">
+        <span>{{ el.name }}</span>
       </div>
     </div>
   </div>

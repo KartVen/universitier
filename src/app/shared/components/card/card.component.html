@@ -1,4 +1,9 @@
-<div (click)="handleExpand()" (keydown)="handleExpand()" role="button" tabindex="0">
+<div
+  (click)="handleExpand()"
+  (keydown)="handleExpand()"
+  role="button"
+  tabindex="0"
+  [class]="expandMode ? 'card-hover' : ''">
   <h3>{{ name }}</h3>
   <div *ngIf="expandMode">
     <mat-icon>{{ !isExpanded ? 'expand_more' : 'expand_less' }}</mat-icon>

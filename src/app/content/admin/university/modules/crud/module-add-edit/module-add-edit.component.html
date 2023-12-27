@@ -8,8 +8,8 @@
     <label class="info-wrapper" for="faculty">
       <span>Wydział *</span>
       <select id="faculty" name="faculty" formControlName="faculty_id">
-        <option *ngFor="let el of facultySelectableList" [value]="el.id">
-          {{ el.name }} ({{ el.shortName }})
+        <option *ngFor="let el of programmeSelectableList" [value]="el.id">
+          {{ el.shortName }} - {{ el.name }}
         </option>
       </select>
     </label>

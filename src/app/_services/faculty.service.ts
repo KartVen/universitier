@@ -21,8 +21,8 @@ interface IFacultyService {
   ): Observable<Page<FacultyForPage>>;
   getFaculty(id: number): Observable<FacultyView>;
   putFaculty(id: number, data: FacultyEdit): Observable<void>;
-  getFacultiesSelectable(): Observable<SelectOption[]>;
   postFaculty(data: FacultyRequest): Observable<SelectOption>;
+  getFacultiesSelectable(): Observable<FacultySelectable[]>;
 }
 
 @Injectable({
@@ -51,12 +51,12 @@ export class FacultyService implements IFacultyService {
     return this.http.put<void>(`${BASE_API_URL}/api/faculties/${id}`, data, httpOptions);
   }
 
-  getFacultiesSelectable(): Observable<FacultySelectable[]> {
-    return this.http.get<FacultySelectable[]>(`${BASE_API_URL}/api/faculties/selectable`);
-  }
-
   postFaculty(data: FacultyRequest): Observable<SelectOption> {
     return this.http.post<SelectOption>(`${BASE_API_URL}/api/faculties`, data, httpOptions);
+  }
+
+  getFacultiesSelectable(): Observable<FacultySelectable[]> {
+    return this.http.get<FacultySelectable[]>(`${BASE_API_URL}/api/faculties/selectable`);
   }
 }
 
@@ -68,13 +68,15 @@ export type FacultyForPage = {
 };
 
 export type FacultyView = FacultyForPage & {
-  courses: number;
+  yearFounded: number;
+  courses: { id: number; name: string }[];
 };
 
 export type FacultyEdit = {
   name: string;
   shortName: string;
   address: string;
+  yearFounded: number;
 };
 
 export type FacultyRequest = FacultyEdit;

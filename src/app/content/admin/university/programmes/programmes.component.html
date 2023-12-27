@@ -4,8 +4,9 @@
     <thead>
       <tr>
         <th>Index</th>
-        <th>Ilość semestrów</th>
-        <th>Rok akademicki</th>
+        <th>Nazwa</th>
+        <th>Oznaczenie</th>
+        <th>Kierunek</th>
         <th>Akcje</th>
       </tr>
     </thead>
@@ -15,8 +16,9 @@
       </tr>
       <tr *ngFor="let element of dataSource">
         <td>{{ element.id }}</td>
-        <td>{{ element.semesters }}</td>
-        <td>{{ element.range }}</td>
+        <td>{{ element.name }}</td>
+        <td>{{ element.shortName }}</td>
+        <td>{{ element.courseName }}</td>
         <td class="action-buttons">
           <button
             mat-icon-button

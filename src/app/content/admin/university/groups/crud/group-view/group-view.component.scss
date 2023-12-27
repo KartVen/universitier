@@ -1,0 +1,12 @@
+@import "global";
+
+:host {
+  width: 100%;
+  app-card-table {
+    width: 100%;
+  }
+
+  div {
+    @include crud-fields;
+  }
+}

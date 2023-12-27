@@ -20,9 +20,9 @@ interface ICourseService {
     filterParams: FilterParams
   ): Observable<Page<CourseForPage>>;
   getCourse(id: number): Observable<CourseView>;
-  getCoursesOptions(): Observable<SelectOption[]>;
   putCourse(id: number, data: CourseAddEdit): Observable<void>;
   postCourse(data: CourseRequest): Observable<SelectOption>;
+  getCoursesSelectable(): Observable<CourseSelectable[]>;
 }
 
 @Injectable({
@@ -47,16 +47,16 @@ export class CourseService implements ICourseService {
     return this.http.get<CourseView>(`${BASE_API_URL}/api/courses/${id}`);
   }
 
-  getCoursesOptions(): Observable<SelectOption[]> {
-    return this.http.get<SelectOption[]>(`${BASE_API_URL}/api/courses/options`);
-  }
-
   postCourse(data: CourseRequest): Observable<SelectOption> {
     return this.http.post<SelectOption>(`${BASE_API_URL}/api/courses`, data, httpOptions);
   }
 
   putCourse(id: number, data: CourseAddEdit): Observable<void> {
     return this.http.put<void>(`${BASE_API_URL}/api/courses/${id}`, data, httpOptions);
+  }
+
+  getCoursesSelectable(): Observable<CourseSelectable[]> {
+    return this.http.get<CourseSelectable[]>(`${BASE_API_URL}/api/courses/selectable`);
   }
 }
 
@@ -73,16 +73,17 @@ export interface CourseView {
     id: number;
     name: string;
   };
-  academicYears: {
-    id: number;
-    academicYear: string;
-  }[];
+  programmes: { id: number; name: string; shortname: string }[];
 }
 
 export type CourseAddEdit = {
   name: string;
   facultyId: number;
-  academicYearsIds: number[];
 };
 
 export type CourseRequest = CourseAddEdit;
+
+export type CourseSelectable = {
+  id: number;
+  name: string;
+};

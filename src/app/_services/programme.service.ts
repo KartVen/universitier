@@ -18,11 +18,11 @@ interface IProgrammeService {
     sort: string,
     sortDirection: string,
     filterParams: FilterParams
-  ): Observable<Page<Programme>>;
-  getProgramme(id: number): Observable<ProgrammeDetails>;
-  getProgrammesOptions(): Observable<SelectOption[]>;
-  putProgramme(id: number, data: ProgrammeEdit): Observable<void>;
+  ): Observable<Page<ProgrammeForPage>>;
+  getProgramme(id: number): Observable<ProgrammeView>;
+  putProgramme(id: number, data: ProgrammeAddEdit): Observable<void>;
   postProgramme(data: ProgrammeRequest): Observable<SelectOption>;
+  getProgrammesSelectable(): Observable<ProgrammeSelectable[]>;
 }
 
 @Injectable({
@@ -37,14 +37,14 @@ export class ProgrammeService implements IProgrammeService {
     sort: string,
     sortDirection: string,
     filterParams: FilterParams
-  ): Observable<Page<Programme>> {
-    return this.http.get<Page<Programme>>(`${BASE_API_URL}/api/programmes`, {
+  ): Observable<Page<ProgrammeForPage>> {
+    return this.http.get<Page<ProgrammeForPage>>(`${BASE_API_URL}/api/programmes`, {
       params: mapParameters(size, page, sort, sortDirection, filterParams),
     });
   }
 
-  getProgramme(id: number): Observable<ProgrammeDetails> {
-    return this.http.get<ProgrammeDetails>(`${BASE_API_URL}/api/programmes/${id}`);
+  getProgramme(id: number): Observable<ProgrammeView> {
+    return this.http.get<ProgrammeView>(`${BASE_API_URL}/api/programmes/${id}`);
   }
 
   getProgrammesOptions(): Observable<SelectOption[]> {
@@ -55,28 +55,41 @@ export class ProgrammeService implements IProgrammeService {
     return this.http.post<SelectOption>(`${BASE_API_URL}/api/programmes`, data, httpOptions);
   }
 
-  putProgramme(id: number, data: ProgrammeEdit): Observable<void> {
+  putProgramme(id: number, data: ProgrammeAddEdit): Observable<void> {
     return this.http.put<void>(`${BASE_API_URL}/api/programmes/${id}`, data, httpOptions);
+  }
+
+  getProgrammesSelectable(): Observable<ProgrammeSelectable[]> {
+    return this.http.get<ProgrammeSelectable[]>(`${BASE_API_URL}/api/programmes/selectable`);
   }
 }
 
-export interface Programme {
+export interface ProgrammeForPage {
   id: number;
   name: string;
+  shortName: string;
+  courseName: string;
 }
 
-export interface ProgrammeDetails {
+export interface ProgrammeView {
   id: number;
   name: string;
   course: {
     id: number;
     name: string;
   };
-  modules: number;
+  modules: { id: number; name: string }[];
 }
 
-export type ProgrammeEdit = {
+export type ProgrammeAddEdit = {
   name: string;
+  courseId: number;
 };
 
-export type ProgrammeRequest = ProgrammeEdit;
+export type ProgrammeRequest = ProgrammeAddEdit;
+
+export type ProgrammeSelectable = {
+  id: number;
+  name: string;
+  shortName: string;
+};

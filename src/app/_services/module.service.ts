@@ -18,11 +18,11 @@ interface IModuleService {
     sort: string,
     sortDirection: string,
     filterParams: FilterParams
-  ): Observable<Page<Module>>;
-  getModule(id: number): Observable<ModuleDetails>;
-  getModulesOptions(): Observable<SelectOption[]>;
-  putModule(id: number, data: ModuleEdit): Observable<void>;
+  ): Observable<Page<ModuleForPage>>;
+  getModule(id: number): Observable<ModuleView>;
+  putModule(id: number, data: ModuleAddEdit): Observable<void>;
   postModule(data: ModuleRequest): Observable<SelectOption>;
+  getModulesSelectable(): Observable<ModuleSelectable[]>;
 }
 
 @Injectable({
@@ -37,14 +37,14 @@ export class ModuleService implements IModuleService {
     sort: string,
     sortDirection: string,
     filterParams: FilterParams
-  ): Observable<Page<Module>> {
-    return this.http.get<Page<Module>>(`${BASE_API_URL}/api/modules`, {
+  ): Observable<Page<ModuleForPage>> {
+    return this.http.get<Page<ModuleForPage>>(`${BASE_API_URL}/api/modules`, {
       params: mapParameters(size, page, sort, sortDirection, filterParams),
     });
   }
 
-  getModule(id: number): Observable<ModuleDetails> {
-    return this.http.get<ModuleDetails>(`${BASE_API_URL}/api/modules/${id}`);
+  getModule(id: number): Observable<ModuleView> {
+    return this.http.get<ModuleView>(`${BASE_API_URL}/api/modules/${id}`);
   }
 
   getModulesOptions(): Observable<SelectOption[]> {
@@ -55,39 +55,47 @@ export class ModuleService implements IModuleService {
     return this.http.post<SelectOption>(`${BASE_API_URL}/api/modules`, data, httpOptions);
   }
 
-  putModule(id: number, data: ModuleEdit): Observable<void> {
+  putModule(id: number, data: ModuleAddEdit): Observable<void> {
     return this.http.put<void>(`${BASE_API_URL}/api/modules/${id}`, data, httpOptions);
+  }
+
+  getModulesSelectable(): Observable<ModuleSelectable[]> {
+    return this.http.get<ModuleSelectable[]>(`${BASE_API_URL}/api/modules/selectable`);
   }
 }
 
-export type Module = {
+export type ModuleForPage = {
   id: number;
   name: string;
   hours: number;
   ects: number;
-  is_exam: boolean;
+  isExam: boolean;
+  programmeName: string;
 };
 
-export type ModuleDetails = {
+export type ModuleView = {
   id: number;
   name: string;
   hours: number;
   ects: number;
-  is_exam: boolean;
+  isExam: boolean;
   programme: {
     id: number;
     name: string;
   };
-  classTypes: string[];
 };
 
-export type ModuleEdit = {
-  id: number;
+export type ModuleAddEdit = {
   name: string;
   hours: number;
   ects: number;
-  is_exam: boolean;
-  programme_id: number;
+  isExam: boolean;
+  programmeId: number;
 };
 
-export type ModuleRequest = ModuleEdit;
+export type ModuleRequest = ModuleAddEdit;
+
+export type ModuleSelectable = {
+  id: number;
+  name: string;
+};

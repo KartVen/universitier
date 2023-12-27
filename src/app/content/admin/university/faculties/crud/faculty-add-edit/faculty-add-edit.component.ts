@@ -31,21 +31,21 @@ export class FacultyAddEditComponent {
       name: ['', [Validators.required]],
       shortname: ['', [Validators.required]],
       address: ['', [Validators.required]],
+      year_founded: ['', [Validators.required]],
     });
     this.route.params.subscribe(params => {
       this.id = +params['id'];
+      this.name = `${this.id ? 'Edytuj' : 'Dodaj'} wydział`;
       if (this.id) {
-        this.name = 'Edytuj wydział';
         this.facultyService.getFaculty(this.id).subscribe({
           next: res =>
             this.form.patchValue({
               ...res,
               shortname: res.shortName,
+              year_founded: res.yearFounded,
             }),
           error: (err: HttpErrorResponse) => console.log(err),
         });
-      } else {
-        this.name = 'Dodaj wydział';
       }
     });
   }
@@ -56,6 +56,7 @@ export class FacultyAddEditComponent {
       name: rawFormData.name,
       address: rawFormData.address,
       shortName: rawFormData.shortname,
+      yearFounded: rawFormData.year_founded,
     };
     if (this.id) {
       this.facultyService.putFaculty(this.id, onSave).subscribe({

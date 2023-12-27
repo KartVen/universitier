@@ -1,4 +1,4 @@
-<app-card *ngIf="data" name="Szczegóły semestru">
+<app-card *ngIf="data" name="Szczegóły wydziału">
   <div>
     <div class="info-wrapper">
       <span>Index</span>
@@ -18,6 +18,18 @@
     <div class="info-wrapper">
       <span>Adres</span>
       <span>{{ data.address }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Rok założenia</span>
+      <span>{{ data.yearFounded ? data.yearFounded : '-' }}</span>
+    </div>
+
+    <div class="info-wrapper form-array-info-wrapper">
+      <span>Kierunki</span>
+      <div class="form-array-item" *ngFor="let el of data.courses">
+        <span>{{ el.name }}</span>
+      </div>
     </div>
   </div>
 </app-card>

@@ -19,6 +19,12 @@ import { FacultyAddEditComponent } from './content/admin/university/faculties/cr
 import { FacultyViewComponent } from './content/admin/university/faculties/crud/faculty-view/faculty-view.component';
 import { CourseViewComponent } from './content/admin/university/courses/crud/course-view/course-view.component';
 import { CourseAddEditComponent } from './content/admin/university/courses/crud/course-add-edit/course-add-edit.component';
+import { ProgrammeAddEditComponent } from './content/admin/university/programmes/crud/programme-add-edit/programme-add-edit.component';
+import { ProgrammeViewComponent } from './content/admin/university/programmes/crud/programme-view/programme-view.component';
+import { ModuleAddEditComponent } from './content/admin/university/modules/crud/module-add-edit/module-add-edit.component';
+import { ModuleViewComponent } from './content/admin/university/modules/crud/module-view/module-view.component';
+import { GroupAddEditComponent } from './content/admin/university/groups/crud/group-add-edit/group-add-edit.component';
+import { GroupViewComponent } from './content/admin/university/groups/crud/group-view/group-view.component';
 
 export const BASE_API_URL = 'http://localhost:8080';
 
@@ -84,6 +90,45 @@ const ROUTES: Routes = [
                 children: [
                   { path: '', component: CourseViewComponent },
                   { path: 'edit', component: CourseAddEditComponent },
+                ],
+              },
+            ],
+          },
+          { path: 'programme-add', component: ProgrammeAddEditComponent },
+          {
+            path: 'programmes',
+            children: [
+              {
+                path: ':id',
+                children: [
+                  { path: '', component: ProgrammeViewComponent },
+                  { path: 'edit', component: ProgrammeAddEditComponent },
+                ],
+              },
+            ],
+          },
+          { path: 'module-add', component: ModuleAddEditComponent },
+          {
+            path: 'modules',
+            children: [
+              {
+                path: ':id',
+                children: [
+                  { path: '', component: ModuleViewComponent },
+                  { path: 'edit', component: ModuleAddEditComponent },
+                ],
+              },
+            ],
+          },
+          { path: 'group-add', component: GroupAddEditComponent },
+          {
+            path: 'groups',
+            children: [
+              {
+                path: ':id',
+                children: [
+                  { path: '', component: GroupViewComponent },
+                  { path: 'edit', component: GroupAddEditComponent },
                 ],
               },
             ],

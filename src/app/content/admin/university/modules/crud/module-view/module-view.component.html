@@ -1,0 +1,28 @@
+<app-card *ngIf="data" name="Szczegóły modułu">
+  <div>
+    <div class="info-wrapper">
+      <span>Index</span>
+      <span>{{ data.id }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Nazwa</span>
+      <span>{{ data.name }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Punkty ECTS</span>
+      <span>{{ data.ects }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Egzamin?</span>
+      <span>{{ data.isExam ? 'Tak' : 'Nie' }}</span>
+    </div>
+
+    <div class="info-wrapper">
+      <span>Specjalność</span>
+      <span>{{ data.programme.name }}</span>
+    </div>
+  </div>
+</app-card>

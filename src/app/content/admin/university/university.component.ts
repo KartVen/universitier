@@ -3,6 +3,9 @@ import { CardComponent } from '../../../shared/components/card/card.component';
 import { AcademicYearsComponent } from './academic-years/academic-years.component';
 import { FacultiesComponent } from './faculties/faculties.component';
 import { CoursesComponent } from './courses/courses.component';
+import { ProgrammesComponent } from './programmes/programmes.component';
+import { ModulesComponent } from './modules/modules.component';
+import { GroupsComponent } from './groups/groups.component';
 
 @Component({
   selector: 'app-university',
@@ -13,6 +16,9 @@ import { CoursesComponent } from './courses/courses.component';
     AcademicYearsComponent,
     FacultiesComponent,
     CoursesComponent,
+    ProgrammesComponent,
+    ModulesComponent,
+    GroupsComponent,
   ],
   templateUrl: './university.component.html',
   styleUrl: './university.component.scss',

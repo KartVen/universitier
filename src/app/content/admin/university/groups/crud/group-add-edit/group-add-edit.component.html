@@ -1,17 +1,17 @@
 <app-card [name]="name">
   <form [formGroup]="form" (submit)="onSubmit()" novalidate>
-    <label class="info-wrapper" for="name">
-      <span>Nazwa *</span>
-      <input type="text" id="name" name="name" formControlName="name" />
-    </label>
-
-    <label class="info-wrapper" for="faculty">
-      <span>Wydział *</span>
-      <select id="faculty" name="faculty" formControlName="faculty_id">
-        <option *ngFor="let el of facultySelectableList" [value]="el.id">
-          {{ el.name }} ({{ el.shortName }})
+    <label class="info-wrapper" for="type">
+      <span>Typ grupy *</span>
+      <select id="type" name="type" formControlName="type">
+        <option *ngFor="let el of groupTypes" [value]="el.key">
+          {{ el.key }} - {{ el.display }}
         </option>
       </select>
+    </label>
+
+    <label class="info-wrapper" for="number">
+      <span>Numer grupy *</span>
+      <input type="number" id="number" name="number" formControlName="number" />
     </label>
 
     <div class="info-wrapper action-buttons">

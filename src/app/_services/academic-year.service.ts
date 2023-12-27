@@ -63,8 +63,8 @@ export class AcademicYearService implements IAcademicYearService {
 
 export type AcademicYearForPage = {
   id: number;
-  number: number;
-  academicYear: string;
+  semesters: number;
+  range: string;
 };
 
 export type AcademicYearView = AcademicYearForPage;

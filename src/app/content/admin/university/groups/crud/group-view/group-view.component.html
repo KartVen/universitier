@@ -1,4 +1,4 @@
-<app-card *ngIf="data" name="Szczegóły roku akademickiego">
+<app-card *ngIf="data" name="Szczegóły wydziału">
   <div>
     <div class="info-wrapper">
       <span>Index</span>
@@ -6,13 +6,13 @@
     </div>
 
     <div class="info-wrapper">
-      <span>Rok akademicki</span>
-      <span>{{ data.range }}</span>
+      <span>Typ</span>
+      <span>{{ data.type }}</span>
     </div>
 
     <div class="info-wrapper">
-      <span>Ilość semestrów</span>
-      <span>{{ data.semesters }}</span>
+      <span>Numer</span>
+      <span>{{ data.number }}</span>
     </div>
   </div>
 </app-card>

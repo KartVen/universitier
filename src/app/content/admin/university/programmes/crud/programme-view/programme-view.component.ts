@@ -6,24 +6,24 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CourseService, CourseView } from '../../../../../../_services/course.service';
+import { ProgrammeService, ProgrammeView } from '../../../../../../_services/programme.service';
 
 @Component({
-  selector: 'app-course-view',
+  selector: 'app-programme-view',
   standalone: true,
   imports: [CommonModule, CardComponent, ReactiveFormsModule, MatIconModule, MatButtonModule],
-  templateUrl: './course-view.component.html',
-  styleUrl: './course-view.component.scss',
+  templateUrl: './programme-view.component.html',
+  styleUrl: './programme-view.component.scss',
 })
-export class CourseViewComponent {
-  protected data!: CourseView;
+export class ProgrammeViewComponent {
+  protected data!: ProgrammeView;
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly courseService: CourseService
+    private readonly programmeService: ProgrammeService
   ) {
     this.route.params.subscribe(params => {
-      this.courseService.getCourse(+params['id']).subscribe({
+      this.programmeService.getProgramme(+params['id']).subscribe({
         next: res => (this.data = res),
         error: (err: HttpErrorResponse) => console.log(err),
       });
