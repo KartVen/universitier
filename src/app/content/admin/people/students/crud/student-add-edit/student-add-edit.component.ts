@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StudentService } from '../../../../../../_services/student.service';
 import { ActivatedRoute } from '@angular/router';
-import SelectOption from '../../../../../../shared/models/select_option';
+import Selectable from '../../../../../../shared/models/selectable';
 
 @Component({
   selector: 'app-student-add-edit',
@@ -32,7 +32,7 @@ export class StudentAddEditComponent {
   protected isMembershipForm: boolean = false;
 
   protected membershipFormState: (number | null)[] = [null, null, null];
-  protected facultiesOptions: SelectOption[] = [
+  protected facultiesOptions: Selectable[] = [
     {
       id: 1,
       name: 'Wydział Elektroniki i Informatyki',
@@ -42,13 +42,13 @@ export class StudentAddEditComponent {
       name: 'Wydział Elektroniki i Informatyki',
     },
   ];
-  protected coursesOptions: SelectOption[] = [
+  protected coursesOptions: Selectable[] = [
     {
       id: 1,
       name: 'Test',
     },
   ];
-  protected programmesOptions: SelectOption[] = [
+  protected programmesOptions: Selectable[] = [
     {
       id: 1,
       name: 'Test',
@@ -65,7 +65,7 @@ export class StudentAddEditComponent {
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      role: ['', [Validators.required]],
+      address: ['', [Validators.required]],
       membership: this.formBuilder.array<MembershipItem>([]),
     });
     this.membership = this.form.get('membership') as FormArray;
@@ -73,23 +73,18 @@ export class StudentAddEditComponent {
       this.id = +params['id'];
       this.name = `${this.id ? 'Edytuj' : 'Dodaj'} studenta`;
       if (this.id) {
-        const student = {
-          id: 1,
-          firstName: 'John',
-          lastName: 'Nowak',
-          email: '167800@universitier.edu.pl',
-          password: 'q3gt7p29t2q4',
-          role: 'STUDENT',
-          active: true,
-        };
-        this.form.patchValue({
-          ...student,
-          first_name: student.firstName,
-          last_name: student.lastName,
-          role: student.role,
-          email_identifier: student.email.split('@')[0],
+        this.studentService.getStudent(this.id).subscribe({
+          next: res => {
+            this.form.patchValue({
+              ...res,
+              first_name: res.firstName,
+              last_name: res.lastName,
+              address: '',
+              email_identifier: res.email.split('@')[0],
+            });
+          },
+          error: err => console.log(err),
         });
-        console.log(this.form.getRawValue());
       }
     });
   }

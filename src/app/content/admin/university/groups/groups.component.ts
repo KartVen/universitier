@@ -71,10 +71,6 @@ export class GroupsComponent implements AfterViewInit {
     this.router.navigate(['university', 'group-add']);
   }
 
-  protected open(id: number): void {
-    this.router.navigate(['university', 'groups', id]);
-  }
-
   protected edit(id: number): void {
     this.router.navigate(['university', 'groups', id, 'edit']);
   }

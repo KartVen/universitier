@@ -1,5 +1,5 @@
 <div class="page-info-content">
-  <button (click)="handleToggleSidenav()">
+  <button (click)="handleToggleSidenav()" *ngIf="windowWidth() < 1328">
     <mat-icon>{{ !isSidenavOpened ? 'menu' : 'close' }}</mat-icon>
   </button>
   <div>{{ title }}</div>
@@ -12,7 +12,7 @@
   </button>
   <div *ngIf="isUserMenuOpened" class="user-dropdown">
     <ul>
-      <li *ngFor="let menu of menus">
+      <li *ngFor="let menu of avatar_dropdown_menus">
         <a [routerLink]="menu.router">
           <div>
             <mat-icon>{{ menu.icon }}</mat-icon>
@@ -30,4 +30,10 @@
       </li>
     </ul>
   </div>
+</div>
+<div *ngIf="!user" class="user-tool-content">
+  <a [routerLink]="login.router" class="login-btn">
+    <mat-icon>{{ login.icon }}</mat-icon>
+    <span>{{ login.name }}</span>
+  </a>
 </div>

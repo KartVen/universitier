@@ -152,8 +152,8 @@ $secondary: #12181b;
 }
 
 @mixin sub-form-crud-fields {
-  padding: 0.5rem 0.75rem;
-  @include app-box-shadow;
+  padding: 0 0.5rem 0.25rem 0.5rem;
+  border: 1px solid lightgrey;
 
   & > button {
     border: none;

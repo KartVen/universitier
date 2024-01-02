@@ -1,43 +1,45 @@
 @import 'global.scss';
 
 :host {
-  display: flex;
-  position: relative;
-  flex-wrap: wrap;
-  padding: 1.5rem 2rem;
-  margin-bottom: 1.5rem;
-  background: white;
-  @include app-box-shadow;
-
-  & > div:first-child {
+  section {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    position: relative;
+    flex-wrap: wrap;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    background: white;
+    @include app-box-shadow;
 
-    & > h3 {
-      margin: 0;
-      padding: 0;
-      font-weight: 500;
+    & > div:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      & > h3 {
+        margin: 0;
+        padding: 0;
+        font-weight: 500;
+      }
+
+      & > button {
+        background: transparent;
+        border: none;
+        font-weight: bold;
+      }
     }
 
-    & > button {
-      background: transparent;
-      border: none;
-      font-weight: bold;
+    .card-content {
+      width: 100%;
+      padding-top: 1rem;
     }
-  }
 
-  .card-content {
-    width: 100%;
-    padding-top: 1rem;
-  }
+    .card-hover {
+      cursor: pointer;
+    }
 
-  .card-hover {
-    cursor: pointer;
-  }
-
-  .card-hidden {
-    display: none;
+    .card-hidden {
+      display: none;
+    }
   }
 }

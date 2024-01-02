@@ -100,5 +100,18 @@
         }
       }
     }
+
+    .login-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      text-decoration: none;
+      color: $secondary;
+      cursor: pointer;
+
+      &:hover {
+        color: #a0a0a0;
+      }
+    }
   }
 }

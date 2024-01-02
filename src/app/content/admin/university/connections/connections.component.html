@@ -4,8 +4,8 @@
     <thead>
       <tr>
         <th>Index</th>
-        <th>Ilość semestrów</th>
-        <th>Rok akademicki</th>
+        <th>Nazwa</th>
+        <th>Skrócona nazwa</th>
         <th>Akcje</th>
       </tr>
     </thead>
@@ -13,16 +13,13 @@
       <tr *ngIf="dataSource.length === 0">
         <span class="no-result">Brak wyników...</span>
       </tr>
-      <tr *ngFor="let element of dataSource">
-        <td>{{ element.id }}</td>
-        <td>{{ element.semesters }}</td>
-        <td>{{ element.range }}</td>
+      <tr *ngFor="let el of dataSource">
+        <td>{{ el.id }}</td>
+        <td>{{ el.moduleName }}</td>
+        <td>{{ el.academicYearRange }}</td>
+        <td>{{ el.groupName }}</td>
         <td class="action-buttons">
-          <button
-            mat-icon-button
-            aria-label="Edycja"
-            class="edit-button"
-            (click)="edit(element.id)">
+          <button mat-icon-button aria-label="Edycja" class="edit-button" (click)="edit(el.id)">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button aria-label="Usuń" class="block-button">

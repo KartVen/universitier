@@ -13,6 +13,7 @@ export class CardComponent {
   @Input({ required: true }) name!: string;
   @Input() expandMode: boolean = false;
   @Input() isExpanded: boolean = false;
+  @Input() id: string = '';
 
   protected handleExpand = () => (this.isExpanded = !this.isExpanded);
 }

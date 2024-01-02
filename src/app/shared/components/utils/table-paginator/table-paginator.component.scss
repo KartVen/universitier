@@ -28,8 +28,19 @@
       }
     }
 
+    .page-btn-hidden {
+      border: transparent;
+      color: rgba(0, 0, 0, .15);
+      cursor: auto;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
     .page-numbers {
       display: flex;
+      gap: 1px;
 
       .page-dots {
         border:none;
@@ -62,12 +73,9 @@
       padding: 2px;
       border: 1px solid rgba(0, 0, 0, .15);
       border-radius: 0.5rem;
+      background: transparent;
       font-size: 0.875rem;
       cursor: pointer;
-    }
-
-    select:hover {
-      background-color: $primary-hover;
     }
   }
 }

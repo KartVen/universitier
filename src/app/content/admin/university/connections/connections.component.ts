@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,13 +7,10 @@ import { TableSearcherComponent } from '../../../../shared/components/utils/tabl
 import { Router } from '@angular/router';
 import { FilterParams } from '../../../../shared/models/api';
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  AcademicYearForPage,
-  AcademicYearService,
-} from '../../../../_services/academic-year.service';
+import { ConnectionForPage, ConnectionService } from '../../../../_services/connection.service';
 
 @Component({
-  selector: 'app-academic-years',
+  selector: 'app-connections',
   standalone: true,
   imports: [
     CommonModule,
@@ -22,11 +19,11 @@ import {
     TablePaginatorComponent,
     TableSearcherComponent,
   ],
-  templateUrl: './academic-years.component.html',
-  styleUrl: './academic-years.component.scss',
+  templateUrl: './connections.component.html',
+  styleUrl: './connections.component.scss',
 })
-export class AcademicYearsComponent implements OnInit, AfterViewInit {
-  protected dataSource: AcademicYearForPage[] = [];
+export class ConnectionsComponent implements AfterViewInit {
+  protected dataSource: ConnectionForPage[] = [];
   protected totalElements!: number;
   protected sizePerPageOptions: number[] = [10, 20, 30];
   protected currentSizePerPage: number = 10;
@@ -36,14 +33,11 @@ export class AcademicYearsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private router: Router,
-    private readonly academicYearService: AcademicYearService
+    private readonly connectionService: ConnectionService
   ) {}
 
-  ngOnInit() {
-    this.handleApi();
-  }
-
   ngAfterViewInit(): void {
+    this.handleApi();
     this.searcher.inputValue.subscribe(input => {
       this.handleApi(this.currentSizePerPage, 1, { phrase: input });
     });
@@ -64,7 +58,7 @@ export class AcademicYearsComponent implements OnInit, AfterViewInit {
     page = this.currentPage,
     filters: FilterParams = {}
   ): void {
-    this.academicYearService.getAcademicYears(size, page - 1, 'id', 'ASC', filters).subscribe({
+    this.connectionService.getConnections(size, page - 1, 'id', 'ASC', filters).subscribe({
       next: res => {
         this.dataSource = res.content;
         this.totalElements = res.totalElements;
@@ -74,10 +68,10 @@ export class AcademicYearsComponent implements OnInit, AfterViewInit {
   }
 
   protected add() {
-    this.router.navigate(['university', 'academic-year-add']);
+    this.router.navigate(['university', 'connection-add']);
   }
 
   protected edit(id: number): void {
-    this.router.navigate(['university', 'academic-years', id, 'edit']);
+    this.router.navigate(['university', 'connections', id, 'edit']);
   }
 }

@@ -2,11 +2,18 @@
 
 :host {
   width: 100%;
+
   app-card-table {
     width: 100%;
   }
 
-  div {
+  form {
+    width: 100%;
+    max-width: 25%;
     @include crud-fields;
+
+    .sub-form {
+      @include sub-form-crud-fields;
+    }
   }
 }

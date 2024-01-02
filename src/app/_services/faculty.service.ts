@@ -3,9 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FilterParams } from '../shared/models/api';
 import { Observable } from 'rxjs';
 import Page from '../shared/models/page';
-import SelectOption from '../shared/models/select_option';
 import { BASE_API_URL } from '../app-routing.module';
-import { mapParameters } from '../_utils/helpers/functions';
+import { mapParams } from '../_utils/helpers/functions';
+import Selectable from '../shared/models/selectable';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -21,7 +21,7 @@ interface IFacultyService {
   ): Observable<Page<FacultyForPage>>;
   getFaculty(id: number): Observable<FacultyView>;
   putFaculty(id: number, data: FacultyEdit): Observable<void>;
-  postFaculty(data: FacultyRequest): Observable<SelectOption>;
+  postFaculty(data: FacultyRequest): Observable<Selectable>;
   getFacultiesSelectable(): Observable<FacultySelectable[]>;
 }
 
@@ -39,7 +39,7 @@ export class FacultyService implements IFacultyService {
     filterParams: FilterParams
   ): Observable<Page<FacultyForPage>> {
     return this.http.get<Page<FacultyForPage>>(`${BASE_API_URL}/api/faculties`, {
-      params: mapParameters(size, page, sort, sortDirection, filterParams),
+      params: mapParams(size, page, sort, sortDirection, filterParams),
     });
   }
 
@@ -51,8 +51,8 @@ export class FacultyService implements IFacultyService {
     return this.http.put<void>(`${BASE_API_URL}/api/faculties/${id}`, data, httpOptions);
   }
 
-  postFaculty(data: FacultyRequest): Observable<SelectOption> {
-    return this.http.post<SelectOption>(`${BASE_API_URL}/api/faculties`, data, httpOptions);
+  postFaculty(data: FacultyRequest): Observable<Selectable> {
+    return this.http.post<Selectable>(`${BASE_API_URL}/api/faculties`, data, httpOptions);
   }
 
   getFacultiesSelectable(): Observable<FacultySelectable[]> {
@@ -81,8 +81,6 @@ export type FacultyEdit = {
 
 export type FacultyRequest = FacultyEdit;
 
-export type FacultySelectable = {
-  id: number;
-  name: string;
+export type FacultySelectable = Selectable & {
   shortName: string;
 };

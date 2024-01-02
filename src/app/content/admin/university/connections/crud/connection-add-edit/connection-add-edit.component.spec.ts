@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AcademicYearViewComponent } from './academic-year-view.component';
+import { ConnectionAddEditComponent } from './connection-add-edit.component';
 
 describe('StaffAddComponent', () => {
-  let component: AcademicYearViewComponent;
-  let fixture: ComponentFixture<AcademicYearViewComponent>;
+  let component: ConnectionAddEditComponent;
+  let fixture: ComponentFixture<ConnectionAddEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AcademicYearViewComponent],
+      imports: [ConnectionAddEditComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AcademicYearViewComponent);
+    fixture = TestBed.createComponent(ConnectionAddEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import Auth from '../shared/models/auth';
 import { jwtDecode } from 'jwt-decode';
+import { Auth } from './auth.service';
 
 const AUTH_ITEM_KEY = 'USESSION';
 
@@ -20,7 +20,7 @@ export class BrowserService {
 
   save(auth: Auth) {
     this.browser.removeItem(AUTH_ITEM_KEY);
-    this.browser.setItem(AUTH_ITEM_KEY, auth.bearer);
+    this.browser.setItem(AUTH_ITEM_KEY, auth.token);
   }
 
   clean(): void {

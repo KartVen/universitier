@@ -6,6 +6,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { ProgrammesComponent } from './programmes/programmes.component';
 import { ModulesComponent } from './modules/modules.component';
 import { GroupsComponent } from './groups/groups.component';
+import { ConnectionsComponent } from './connections/connections.component';
 
 @Component({
   selector: 'app-university',
@@ -19,6 +20,7 @@ import { GroupsComponent } from './groups/groups.component';
     ProgrammesComponent,
     ModulesComponent,
     GroupsComponent,
+    ConnectionsComponent,
   ],
   templateUrl: './university.component.html',
   styleUrl: './university.component.scss',

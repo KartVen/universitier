@@ -3,9 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FilterParams } from '../shared/models/api';
 import { Observable } from 'rxjs';
 import Page from '../shared/models/page';
-import SelectOption from '../shared/models/select_option';
 import { BASE_API_URL } from '../app-routing.module';
-import { mapParameters } from '../_utils/helpers/functions';
+import { mapArgsParams, mapParams } from '../_utils/helpers/functions';
+import Selectable from '../shared/models/selectable';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -21,7 +21,7 @@ interface IGroupService {
   ): Observable<Page<GroupForPage>>;
   getGroup(id: number): Observable<GroupView>;
   putGroup(id: number, data: GroupAddEdit): Observable<void>;
-  postGroup(data: GroupRequest): Observable<SelectOption>;
+  postGroup(data: GroupRequest): Observable<Selectable>;
   getGroupsSelectable(): Observable<GroupSelectable[]>;
 }
 
@@ -39,7 +39,7 @@ export class GroupService implements IGroupService {
     filterParams: FilterParams
   ): Observable<Page<GroupForPage>> {
     return this.http.get<Page<GroupForPage>>(`${BASE_API_URL}/api/groups`, {
-      params: mapParameters(size, page, sort, sortDirection, filterParams),
+      params: mapParams(size, page, sort, sortDirection, filterParams),
     });
   }
 
@@ -51,12 +51,14 @@ export class GroupService implements IGroupService {
     return this.http.put<void>(`${BASE_API_URL}/api/groups/${id}`, data, httpOptions);
   }
 
-  postGroup(data: GroupRequest): Observable<SelectOption> {
-    return this.http.post<SelectOption>(`${BASE_API_URL}/api/groups`, data, httpOptions);
+  postGroup(data: GroupRequest): Observable<Selectable> {
+    return this.http.post<Selectable>(`${BASE_API_URL}/api/groups`, data, httpOptions);
   }
 
-  getGroupsSelectable(): Observable<GroupSelectable[]> {
-    return this.http.get<GroupSelectable[]>(`${BASE_API_URL}/api/groups/selectable`);
+  getGroupsSelectable(moduleId?: number): Observable<GroupSelectable[]> {
+    return this.http.get<GroupSelectable[]>(`${BASE_API_URL}/api/groups/selectable`, {
+      params: mapArgsParams({ param: 'moduleId', value: moduleId?.toString() }),
+    });
   }
 }
 

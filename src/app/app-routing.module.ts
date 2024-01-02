@@ -14,7 +14,6 @@ import { StaffViewComponent } from './content/admin/people/staffs/crud/staff-vie
 import { StudentAddEditComponent } from './content/admin/people/students/crud/student-add-edit/student-add-edit.component';
 import { StudentViewComponent } from './content/admin/people/students/crud/student-view/student-view.component';
 import { AcademicYearAddEditComponent } from './content/admin/university/academic-years/crud/academic-year-add-edit/academic-year-add-edit.component';
-import { AcademicYearViewComponent } from './content/admin/university/academic-years/crud/academic-year-view/academic-year-view.component';
 import { FacultyAddEditComponent } from './content/admin/university/faculties/crud/faculty-add-edit/faculty-add-edit.component';
 import { FacultyViewComponent } from './content/admin/university/faculties/crud/faculty-view/faculty-view.component';
 import { CourseViewComponent } from './content/admin/university/courses/crud/course-view/course-view.component';
@@ -24,7 +23,7 @@ import { ProgrammeViewComponent } from './content/admin/university/programmes/cr
 import { ModuleAddEditComponent } from './content/admin/university/modules/crud/module-add-edit/module-add-edit.component';
 import { ModuleViewComponent } from './content/admin/university/modules/crud/module-view/module-view.component';
 import { GroupAddEditComponent } from './content/admin/university/groups/crud/group-add-edit/group-add-edit.component';
-import { GroupViewComponent } from './content/admin/university/groups/crud/group-view/group-view.component';
+import { ConnectionAddEditComponent } from './content/admin/university/connections/crud/connection-add-edit/connection-add-edit.component';
 
 export const BASE_API_URL = 'http://localhost:8080';
 
@@ -62,8 +61,8 @@ const ROUTES: Routes = [
               {
                 path: ':id',
                 children: [
-                  { path: '', component: FacultyViewComponent },
-                  { path: 'edit', component: FacultyAddEditComponent },
+                  { path: '', component: FacultyViewComponent, title: 'Szczegóły wydziału' },
+                  { path: 'edit', component: FacultyAddEditComponent, title: 'Edytuj wydział' },
                 ],
               },
             ],
@@ -73,11 +72,9 @@ const ROUTES: Routes = [
             path: 'academic-years',
             children: [
               {
-                path: ':id',
-                children: [
-                  { path: '', component: AcademicYearViewComponent },
-                  { path: 'edit', component: AcademicYearAddEditComponent },
-                ],
+                path: ':id/edit',
+                title: 'Edytuj rok akademicki',
+                component: AcademicYearAddEditComponent,
               },
             ],
           },
@@ -88,8 +85,8 @@ const ROUTES: Routes = [
               {
                 path: ':id',
                 children: [
-                  { path: '', component: CourseViewComponent },
-                  { path: 'edit', component: CourseAddEditComponent },
+                  { path: '', component: CourseViewComponent, title: 'Szczegóły kierunku' },
+                  { path: 'edit', component: CourseAddEditComponent, title: 'Edytuj kierunek' },
                 ],
               },
             ],
@@ -101,8 +98,12 @@ const ROUTES: Routes = [
               {
                 path: ':id',
                 children: [
-                  { path: '', component: ProgrammeViewComponent },
-                  { path: 'edit', component: ProgrammeAddEditComponent },
+                  { path: '', component: ProgrammeViewComponent, title: 'Szczegóły specjalności' },
+                  {
+                    path: 'edit',
+                    component: ProgrammeAddEditComponent,
+                    title: 'Edytuj specjalność',
+                  },
                 ],
               },
             ],
@@ -114,8 +115,8 @@ const ROUTES: Routes = [
               {
                 path: ':id',
                 children: [
-                  { path: '', component: ModuleViewComponent },
-                  { path: 'edit', component: ModuleAddEditComponent },
+                  { path: '', component: ModuleViewComponent, title: 'Szczegóły modułu' },
+                  { path: 'edit', component: ModuleAddEditComponent, title: 'Edytuj moduł' },
                 ],
               },
             ],
@@ -125,11 +126,20 @@ const ROUTES: Routes = [
             path: 'groups',
             children: [
               {
-                path: ':id',
-                children: [
-                  { path: '', component: GroupViewComponent },
-                  { path: 'edit', component: GroupAddEditComponent },
-                ],
+                path: ':id/edit',
+                title: 'Edytuj grupę',
+                component: GroupAddEditComponent,
+              },
+            ],
+          },
+          { path: 'connection-add', component: ConnectionAddEditComponent },
+          {
+            path: 'connections',
+            children: [
+              {
+                path: ':id/edit',
+                title: 'Edytuj powiązanie',
+                component: ConnectionAddEditComponent,
               },
             ],
           },
@@ -146,8 +156,8 @@ const ROUTES: Routes = [
               {
                 path: ':id',
                 children: [
-                  { path: '', component: StaffViewComponent },
-                  { path: 'edit', component: StaffAddEditComponent },
+                  { path: '', component: StaffViewComponent, title: 'Szczegóły pracownika' },
+                  { path: 'edit', component: StaffAddEditComponent, title: 'Edytuj pracownika' },
                 ],
               },
             ],
@@ -159,8 +169,8 @@ const ROUTES: Routes = [
               {
                 path: ':id',
                 children: [
-                  { path: '', component: StudentViewComponent },
-                  { path: 'edit', component: StudentAddEditComponent },
+                  { path: '', component: StudentViewComponent, title: 'Szczegóły studenta' },
+                  { path: 'edit', component: StudentAddEditComponent, title: 'Edytuj studenta' },
                 ],
               },
             ],

@@ -1,21 +1,24 @@
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
 
-class FormArraySubForm<T> {
-  readonly form: FormGroup;
-  readonly field: string;
-  isOpened: boolean;
+class FormArraySubForm<T, R> {
   readonly array: FormArray;
+  state: R | null = null;
+  isOpened: boolean;
 
-  constructor(form: FormGroup, field: string, isOpened: boolean = false) {
-    this.form = form;
-    this.field = field;
-    this.array = this.getArray();
+  constructor(formArray: FormArray, isOpened: boolean = false) {
+    this.array = formArray;
     this.isOpened = isOpened;
   }
 
-  getArray() {
-    return this.form.get(this.field) as FormArray;
-  }
+  values = () => this.array.controls.map(({ value }) => value);
+
+  add = (control: FormControl<T | null>) => {
+    if (control.value) this.array.push(control);
+  };
+
+  remove = (index: number) => this.array.removeAt(index);
+
+  clearState = () => (this.state = null);
 }
 
 export default FormArraySubForm;

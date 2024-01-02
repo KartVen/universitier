@@ -4,8 +4,8 @@ import { FilterParams } from '../shared/models/api';
 import { Observable } from 'rxjs';
 import Page from '../shared/models/page';
 import { BASE_API_URL } from '../app-routing.module';
-import { mapParameters } from '../_utils/helpers/functions';
-import SelectOption from '../shared/models/select_option';
+import { mapParams } from '../_utils/helpers/functions';
+import Selectable from '../shared/models/selectable';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -21,7 +21,7 @@ interface IModuleService {
   ): Observable<Page<ModuleForPage>>;
   getModule(id: number): Observable<ModuleView>;
   putModule(id: number, data: ModuleAddEdit): Observable<void>;
-  postModule(data: ModuleRequest): Observable<SelectOption>;
+  postModule(data: ModuleRequest): Observable<Selectable>;
   getModulesSelectable(): Observable<ModuleSelectable[]>;
 }
 
@@ -39,7 +39,7 @@ export class ModuleService implements IModuleService {
     filterParams: FilterParams
   ): Observable<Page<ModuleForPage>> {
     return this.http.get<Page<ModuleForPage>>(`${BASE_API_URL}/api/modules`, {
-      params: mapParameters(size, page, sort, sortDirection, filterParams),
+      params: mapParams(size, page, sort, sortDirection, filterParams),
     });
   }
 
@@ -47,12 +47,12 @@ export class ModuleService implements IModuleService {
     return this.http.get<ModuleView>(`${BASE_API_URL}/api/modules/${id}`);
   }
 
-  getModulesOptions(): Observable<SelectOption[]> {
-    return this.http.get<SelectOption[]>(`${BASE_API_URL}/api/modules/options`);
+  getModulesOptions(): Observable<Selectable[]> {
+    return this.http.get<Selectable[]>(`${BASE_API_URL}/api/modules/options`);
   }
 
-  postModule(data: ModuleRequest): Observable<SelectOption> {
-    return this.http.post<SelectOption>(`${BASE_API_URL}/api/modules`, data, httpOptions);
+  postModule(data: ModuleRequest): Observable<Selectable> {
+    return this.http.post<Selectable>(`${BASE_API_URL}/api/modules`, data, httpOptions);
   }
 
   putModule(id: number, data: ModuleAddEdit): Observable<void> {

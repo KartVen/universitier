@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StaffService } from '../../../../../../_services/staff.service';
 import { ActivatedRoute } from '@angular/router';
-import SelectOption from '../../../../../../shared/models/select_option';
+import Selectable from '../../../../../../shared/models/selectable';
 
 @Component({
   selector: 'app-staff-add-edit',
@@ -28,9 +28,9 @@ export class StaffAddEditComponent {
   protected id: number | null = null;
   protected STAFF_ROLES = ['PRACOWNIK', 'PROWADZĄCY'];
   protected EMAIL_DOMAIN = '@univerisitier.edu.pl';
-  protected facultiesOptions: SelectOption[] = [];
-  protected coursesOptions: SelectOption[] = [];
-  protected programmesOptions: SelectOption[] = [];
+  protected facultiesOptions: Selectable[] = [];
+  protected coursesOptions: Selectable[] = [];
+  protected programmesOptions: Selectable[] = [];
 
   constructor(
     private formBuilder: FormBuilder,

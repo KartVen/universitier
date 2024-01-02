@@ -6,7 +6,7 @@ const httpOptions = {
 };
 
 interface IStaffService {
-  /*postStaffs(data: StaffRequest): Observable<SelectOption>;*/
+  /*postStaffs(data: StaffRequest): Observable<Selectable>;*/
 }
 
 @Injectable({
@@ -15,8 +15,8 @@ interface IStaffService {
 export class StaffService implements IStaffService {
   constructor(private http: HttpClient) {}
 
-  /*  postStaffs(data: StaffRequest): Observable<SelectOption> {
-    return this.http.post<SelectOption>(`${BASE_API_URL}/api/staffs`, data, httpOptions);
+  /*  postStaffs(data: StaffRequest): Observable<Selectable> {
+    return this.http.post<Selectable>(`${BASE_API_URL}/api/staffs`, data, httpOptions);
   }*/
 }
 

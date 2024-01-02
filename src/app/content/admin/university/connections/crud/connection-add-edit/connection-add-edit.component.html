@@ -1,0 +1,78 @@
+<app-card [name]="name">
+  <form [formGroup]="form" (submit)="onSubmit()" novalidate>
+    <label class="info-wrapper" for="module">
+      <span>Moduł *</span>
+      <select id="module" name="module" formControlName="module">
+        <option *ngFor="let el of selectOptions.modules" [value]="el.id">
+          {{ el.name }}
+        </option>
+      </select>
+    </label>
+
+    <label class="info-wrapper" for="academic-year">
+      <span>Rok akademicki *</span>
+      <select id="academic-year" name="academic-year" formControlName="academicYear">
+        <option *ngFor="let el of selectOptions.academicYears" [value]="el.id">
+          {{ el.range }}
+        </option>
+      </select>
+    </label>
+
+    <label class="info-wrapper form-array-info-wrapper" for="membership">
+      <span id="membership">Przynależność: *</span>
+      <div class="form-array-block">
+        <div class="form-array-item" *ngFor="let el of groupsSubForm.values(); let i = index">
+          <span>{{ el.name }}</span>
+          <button
+            type="button"
+            aria-label="Usuń"
+            class="multi-sel-btn block-button"
+            (click)="groupsSubForm.remove(i)">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button
+        type="button"
+        aria-label="Dodaj"
+        class="add-button"
+        *ngIf="!groupsSubForm.isOpened"
+        (click)="groupsSubForm.isOpened = true">
+        Dodaj
+      </button>
+    </label>
+
+    <div formGroupName="subFormGroups" *ngIf="groupsSubForm.isOpened" class="sub-form">
+      <label class="info-wrapper" for="sub-form-group">
+        <span>Wydział *</span>
+        <select id="sub-form-group" name="sub-form-group" formControlName="group">
+          <option
+            *ngFor="let el of selectOptions.groups"
+            [value]="el.id + '|' + el.type + el.number">
+            {{ el.type }}{{ el.number }}
+          </option>
+        </select>
+      </label>
+
+      <button type="button" aria-label="Dodaj" class="save-button" (click)="addGroup()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="info-wrapper action-buttons">
+      <button mat-stroked-button aria-label="Zapisz" type="submit" class="save-button">
+        <mat-icon>check_circle</mat-icon>
+        Zapisz
+      </button>
+      <button
+        mat-stroked-button
+        aria-label="Anuluj"
+        type="button"
+        class="cancel-button"
+        (click)="onCancel()">
+        <mat-icon>cancel</mat-icon>
+        Anuluj
+      </button>
+    </div>
+  </form>
+</app-card>

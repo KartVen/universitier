@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StudentService, StudentView } from '../../../../../../_services/student.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-student-view',
@@ -14,21 +16,19 @@ import { StudentService, StudentView } from '../../../../../../_services/student
   styleUrl: './student-view.component.scss',
 })
 export class StudentViewComponent implements AfterViewInit {
-  protected student!: StudentView;
+  protected data!: StudentView;
 
-  constructor(private readonly studentService: StudentService) {}
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly studentService: StudentService
+  ) {}
 
   ngAfterViewInit(): void {
-    this.student = {
-      id: 1,
-      firstName: 'John',
-      lastName: 'Nowak',
-      email: 'jnowak@universitier.edu.pl',
-      password: 'q3gt7p29t2q4',
-      role: 'STUDENT',
-      position: 'Stanowisko 1',
-      description: '',
-      active: true,
-    };
+    this.route.params.subscribe(params => {
+      this.studentService.getStudent(+params['id']).subscribe({
+        next: res => (this.data = res),
+        error: (err: HttpErrorResponse) => console.log(err),
+      });
+    });
   }
 }

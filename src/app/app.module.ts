@@ -5,16 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './_utils/http.interceptor';
 import { PageModule } from './shared/modules/page/page.module';
 import { AppRoutingModule } from './app-routing.module';
+import { titleStrategyProvider } from './_utils/title-strategy';
 
 @NgModule({
-  imports: [
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    PageModule,
-  ],
+  imports: [AppRoutingModule, BrowserAnimationsModule, HttpClientModule, PageModule],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders, titleStrategyProvider],
 })
 export class AppModule {}

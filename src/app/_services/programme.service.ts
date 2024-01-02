@@ -4,8 +4,8 @@ import { FilterParams } from '../shared/models/api';
 import { Observable } from 'rxjs';
 import Page from '../shared/models/page';
 import { BASE_API_URL } from '../app-routing.module';
-import { mapParameters } from '../_utils/helpers/functions';
-import SelectOption from '../shared/models/select_option';
+import { mapParams } from '../_utils/helpers/functions';
+import Selectable from '../shared/models/selectable';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -21,7 +21,7 @@ interface IProgrammeService {
   ): Observable<Page<ProgrammeForPage>>;
   getProgramme(id: number): Observable<ProgrammeView>;
   putProgramme(id: number, data: ProgrammeAddEdit): Observable<void>;
-  postProgramme(data: ProgrammeRequest): Observable<SelectOption>;
+  postProgramme(data: ProgrammeRequest): Observable<Selectable>;
   getProgrammesSelectable(): Observable<ProgrammeSelectable[]>;
 }
 
@@ -39,7 +39,7 @@ export class ProgrammeService implements IProgrammeService {
     filterParams: FilterParams
   ): Observable<Page<ProgrammeForPage>> {
     return this.http.get<Page<ProgrammeForPage>>(`${BASE_API_URL}/api/programmes`, {
-      params: mapParameters(size, page, sort, sortDirection, filterParams),
+      params: mapParams(size, page, sort, sortDirection, filterParams),
     });
   }
 
@@ -47,12 +47,12 @@ export class ProgrammeService implements IProgrammeService {
     return this.http.get<ProgrammeView>(`${BASE_API_URL}/api/programmes/${id}`);
   }
 
-  getProgrammesOptions(): Observable<SelectOption[]> {
-    return this.http.get<SelectOption[]>(`${BASE_API_URL}/api/programmes/options`);
+  getProgrammesOptions(): Observable<Selectable[]> {
+    return this.http.get<Selectable[]>(`${BASE_API_URL}/api/programmes/options`);
   }
 
-  postProgramme(data: ProgrammeRequest): Observable<SelectOption> {
-    return this.http.post<SelectOption>(`${BASE_API_URL}/api/programmes`, data, httpOptions);
+  postProgramme(data: ProgrammeRequest): Observable<Selectable> {
+    return this.http.post<Selectable>(`${BASE_API_URL}/api/programmes`, data, httpOptions);
   }
 
   putProgramme(id: number, data: ProgrammeAddEdit): Observable<void> {

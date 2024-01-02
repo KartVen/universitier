@@ -1,11 +1,20 @@
 <div class="pagination">
-  <button (click)="onPageChange(currentPage - 1)">
+  <button
+    (click)="onPageChange(currentPage - 1)"
+    [class]="currentPage === 1 ? 'page-btn-hidden' : ''">
     <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
   <div class="page-numbers">
-    <button *ngFor="let page of calcPages()" (click)="onPageChange(page)">{{ page }}</button>
+    <button
+      *ngFor="let page of calcPages(); let idx = index"
+      (click)="onPageChange(page)"
+      [class]="idx === currentPage - 1 ? 'page-active' : ''">
+      {{ page }}
+    </button>
   </div>
-  <button (click)="onPageChange(currentPage + 1)">
+  <button
+    (click)="onPageChange(currentPage + 1)"
+    [class]="currentPage === calcPages().length ? 'page-btn-hidden' : ''">
     <mat-icon>keyboard_arrow_right</mat-icon>
   </button>
 </div>

@@ -3,9 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FilterParams } from '../shared/models/api';
 import { Observable } from 'rxjs';
 import Page from '../shared/models/page';
-import { mapParameters } from '../_utils/helpers/functions';
+import { mapParams } from '../_utils/helpers/functions';
 import { BASE_API_URL } from '../app-routing.module';
-import SelectOption from '../shared/models/select_option';
+import Selectable from '../shared/models/selectable';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -21,7 +21,7 @@ interface ICourseService {
   ): Observable<Page<CourseForPage>>;
   getCourse(id: number): Observable<CourseView>;
   putCourse(id: number, data: CourseAddEdit): Observable<void>;
-  postCourse(data: CourseRequest): Observable<SelectOption>;
+  postCourse(data: CourseRequest): Observable<Selectable>;
   getCoursesSelectable(): Observable<CourseSelectable[]>;
 }
 
@@ -39,7 +39,7 @@ export class CourseService implements ICourseService {
     filterParams: FilterParams
   ): Observable<Page<CourseForPage>> {
     return this.http.get<Page<CourseForPage>>(`${BASE_API_URL}/api/courses`, {
-      params: mapParameters(size, page, sort, sortDirection, filterParams),
+      params: mapParams(size, page, sort, sortDirection, filterParams),
     });
   }
 
@@ -47,8 +47,8 @@ export class CourseService implements ICourseService {
     return this.http.get<CourseView>(`${BASE_API_URL}/api/courses/${id}`);
   }
 
-  postCourse(data: CourseRequest): Observable<SelectOption> {
-    return this.http.post<SelectOption>(`${BASE_API_URL}/api/courses`, data, httpOptions);
+  postCourse(data: CourseRequest): Observable<Selectable> {
+    return this.http.post<Selectable>(`${BASE_API_URL}/api/courses`, data, httpOptions);
   }
 
   putCourse(id: number, data: CourseAddEdit): Observable<void> {

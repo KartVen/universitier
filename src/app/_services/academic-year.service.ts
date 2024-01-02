@@ -4,8 +4,7 @@ import { FilterParams } from '../shared/models/api';
 import { Observable } from 'rxjs';
 import Page from '../shared/models/page';
 import { BASE_API_URL } from '../app-routing.module';
-import SelectOption from '../shared/models/select_option';
-import { mapParameters } from '../_utils/helpers/functions';
+import { mapParams } from '../_utils/helpers/functions';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -20,9 +19,9 @@ interface IAcademicYearService {
     filterParams: FilterParams
   ): Observable<Page<AcademicYearForPage>>;
   getAcademicYear(id: number): Observable<AcademicYearView>;
-  getAcademicYearsOptions(): Observable<SelectOption[]>;
   putAcademicYear(id: number, data: AcademicYearEdit): Observable<void>;
-  postAcademicYear(data: AcademicYearRequest): Observable<SelectOption>;
+  postAcademicYear(data: AcademicYearRequest): Observable<AcademicYearSelectable>;
+  getAcademicYearsSelectable(): Observable<AcademicYearSelectable[]>;
 }
 
 @Injectable({
@@ -39,7 +38,7 @@ export class AcademicYearService implements IAcademicYearService {
     filterParams: FilterParams
   ): Observable<Page<AcademicYearForPage>> {
     return this.http.get<Page<AcademicYearForPage>>(`${BASE_API_URL}/api/academic-years`, {
-      params: mapParameters(size, page, sort, sortDirection, filterParams),
+      params: mapParams(size, page, sort, sortDirection, filterParams),
     });
   }
 
@@ -52,12 +51,16 @@ export class AcademicYearService implements IAcademicYearService {
     return this.http.put<void>(`${BASE_API_URL}/api/academic-years/${id}`, data, httpOptions);
   }
 
-  getAcademicYearsOptions(): Observable<SelectOption[]> {
-    return this.http.get<SelectOption[]>(`${BASE_API_URL}/api/academic-years/options`);
+  postAcademicYear(data: AcademicYearRequest): Observable<AcademicYearSelectable> {
+    return this.http.post<AcademicYearSelectable>(
+      `${BASE_API_URL}/api/academic-years`,
+      data,
+      httpOptions
+    );
   }
 
-  postAcademicYear(data: AcademicYearRequest): Observable<SelectOption> {
-    return this.http.post<SelectOption>(`${BASE_API_URL}/api/academic-years`, data, httpOptions);
+  getAcademicYearsSelectable(): Observable<AcademicYearSelectable[]> {
+    return this.http.get<AcademicYearSelectable[]>(`${BASE_API_URL}/api/academic-years/selectable`);
   }
 }
 
@@ -75,3 +78,8 @@ export type AcademicYearEdit = {
 };
 
 export type AcademicYearRequest = AcademicYearEdit;
+
+export type AcademicYearSelectable = {
+  id: number;
+  range: string;
+};

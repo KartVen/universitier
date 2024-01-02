@@ -13,7 +13,7 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthService } from '../_services/auth.service';
+import { AuthService, Login } from '../_services/auth.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @Component({
@@ -52,10 +52,14 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
+    const rawFormData = this.formLogin.getRawValue();
+    const onLogin: Login = {
+      usernameOrEmail: rawFormData.email,
+      password: rawFormData.password,
+    };
     this.formLogin.valid &&
-      this.authService.login(this.formLogin.value).subscribe({
+      this.authService.login(onLogin).subscribe({
         next: data => {
-          console.log('formLogin', data);
           this.browserService.save(data);
           this.router.navigate(['/dashboard']);
         },
